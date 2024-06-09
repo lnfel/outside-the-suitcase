@@ -15,6 +15,9 @@ const config = {
         }),
         prerender: {
             handleHttpError: 'ignore'
+        },
+        paths: {
+            base: process.argv.includes('dev') ? '' : '/outside-the-suitcase'
         }
 	}
 };
