@@ -19,9 +19,9 @@
          */
         const audioURL = URL.createObjectURL(new Blob([arrayBuffer], { type: 'audio/mpeg' }))
         const audioContext = new AudioContext()
-        await audioContext.resume()
+        // await audioContext.resume()
         const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)
-        await audioContext.audioWorklet.addModule(WaveformWorkletURL)
+        // await audioContext.audioWorklet.addModule(WaveformWorkletURL)
         // const waveformAudioWorkletNode = new AudioWorkletNode(audioContext, 'waveform-worklet-processor')
         // waveformAudioWorkletNode.port.onmessage = (event) => {
         //     console.log(event)
