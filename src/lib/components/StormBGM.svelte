@@ -55,7 +55,7 @@
             //     animation: true,
             //     normalize: true
             // })
-            const waveformResponse = await fetch('/api/waveform-path')
+            const waveformResponse = await fetch(`${base}/api/waveform-path`)
             path = (await waveformResponse.json()).path
         }
     }
