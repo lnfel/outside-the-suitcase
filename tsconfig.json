@@ -10,6 +10,9 @@
 		"sourceMap": true,
 		"strict": true,
 		"moduleResolution": "bundler",
+        "typeRoots": [
+            "./src/lib/types"
+        ],
         "lib": [
             "WebWorker",
             "esnext",

@@ -43,6 +43,7 @@
     },
     "dependencies": {
         "googleapis": "^140.0.0",
-        "lucide-svelte": "^0.390.0"
+        "lucide-svelte": "^0.390.0",
+        "node-web-audio-api": "^0.21.0"
     }
 }

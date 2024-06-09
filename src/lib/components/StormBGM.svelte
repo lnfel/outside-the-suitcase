@@ -44,16 +44,18 @@
             //     }
             // }
 
-            path = polarPath(audioBuffer, {
-                samples: 25,
-                type: 'mirror',
-                left: 12,
-                top: 12,
-                distance: 10,
-                length: 20,
-                animation: true,
-                normalize: true
-            })
+            // path = polarPath(audioBuffer, {
+            //     samples: 25,
+            //     type: 'mirror',
+            //     left: 12,
+            //     top: 12,
+            //     distance: 10,
+            //     length: 20,
+            //     animation: true,
+            //     normalize: true
+            // })
+            const waveformResponse = await fetch('/api/waveform-path')
+            path = (await waveformResponse.json()).path
         }
     }
 
