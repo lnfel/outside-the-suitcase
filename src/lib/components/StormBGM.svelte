@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { base } from '$app/paths'
     import { getAudioData, polarPath } from '$lib/waveform-path'
     import WaveformWorker from '$lib/worker/waveform-path?worker'
     import WaveformWorkletURL from '$lib/worker/waveform-worklet?url'
@@ -9,7 +10,7 @@
     let path: string = $state("")
 
     async function loadBgm() {
-        const response = await fetch(`${window.location.origin}/audio/reverse-bgm.mp3`)
+        const response = await fetch(`${window.location.origin}${base}/audio/reverse-bgm.mp3`)
         const arrayBuffer = await response.arrayBuffer()
         const arrayBufferForWorker = structuredClone(arrayBuffer)
         /**

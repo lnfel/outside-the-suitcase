@@ -1,11 +1,12 @@
 import { json } from '@sveltejs/kit'
+import { base } from '$app/paths'
 import { polarPath } from '$lib/waveform-path/index.js'
 import { AudioContext } from 'node-web-audio-api'
 
 export const prerender = true
 
 export const GET = async ({ fetch, url }) => {
-    const response = await fetch(`${url.origin}/audio/reverse-bgm.mp3`)
+    const response = await fetch(`${url.origin}${base}/audio/reverse-bgm.mp3`)
     const arrayBuffer = await response.arrayBuffer()
 
     const audioContext = new AudioContext()
