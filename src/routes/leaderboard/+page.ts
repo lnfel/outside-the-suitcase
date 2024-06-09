@@ -1,8 +1,6 @@
 import { PUBLIC_LAMY_API_GOOGLE_SHEETS_API_KEY, PUBLIC_GLOBAL_RANKING_SPREADSHEET_ID } from "$env/static/public"
 import { parseSheetData, filterHeaders } from "$lib/google/sheets"
 
-export const ssr = false
-
 export const load = async ({ fetch }) => {
     const f2pHeadersResponse = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${PUBLIC_GLOBAL_RANKING_SPREADSHEET_ID}/values/F2P!B8:8?majorDimension=ROWS&key=${PUBLIC_LAMY_API_GOOGLE_SHEETS_API_KEY}`)
     const headers = filterHeaders((await f2pHeadersResponse.json())?.values[0] ?? [])
