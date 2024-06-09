@@ -34,6 +34,9 @@ declare global {
         type RaidGroup<T> = Record<RaidTitle, RaidData>
         type Data<T> = Record<Category, RaidGroup<T>>
     }
+    interface Window {
+        webkitAudioContext: typeof AudioContext
+    }
 }
 
 export {};
