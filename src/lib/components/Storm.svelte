@@ -1,0 +1,170 @@
+<script lang="ts">
+    import { onMount } from "svelte"
+
+    // CSS Rain Effect
+    // https://codepen.io/REast/pen/ExZeWP
+    // Canvas Bubbles
+    // https://codepen.io/MarioD/pen/gWregQ
+
+    function updateCanvasPosition(canvas: HTMLCanvasElement, container: HTMLDivElement) {
+        const containerWidth = container.clientWidth
+        const containerHeight = container.clientHeight
+        if (canvas) {
+            canvasWidth = canvas.width = Math.max(500, containerWidth)
+            canvasHeight = canvas.height = Math.max(320, containerHeight)
+        }
+        container.style.left = container.style.right = container.style.top = container.style.bottom = "0";
+    }
+
+    function createRain() {
+        const length = 500
+        rainArr = []
+        for (let i = length - 1; i >= 0; i--) {
+            rainArr.push({
+                x: 1,
+                y: 0,
+                z: 0
+            })
+        }
+
+        for (let j = 0; j < 500; j++) {
+            rainArr[j].x = Math.floor((Math.random() * document.documentElement.clientWidth) + 9)
+            rainArr[j].y = Math.floor((Math.random() * rainContainer.clientHeight) + 9)
+            rainArr[j].z = Math.floor((Math.random() * 2) + 1)
+            rainArr[j].w = Math.floor((Math.random() * 3) + 2)
+        }
+    }
+
+    /**
+     * Paints and updates the raindrops position on the canvas
+     */
+    function paintRain() {
+        for (let i = 0; i < 500; i++) {
+            // use this for resetting falling rain
+            // if (rainArr[i].y >= rainContainer.clientHeight) {
+            //     rainArr[i].y -= rainContainer.clientHeight
+            // }
+
+            // reset rain y position when reaching the top
+            if (rainArr[i].y <= 0) {
+                rainArr[i].y += rainContainer.clientHeight
+            }
+            if (rainArr[i].x < -10) {
+                rainArr[i].x += canvasWidth
+            } else {
+                // use += if we want rain to fall down instead
+                rainArr[i].y -= Number(rainArr[i]?.w ?? 1) * rainSpeed
+                // this one adds a slight angle to rain drops
+                // rainArr[i].x -= 5 + Math.floor(rainArr[i].y / 250) - Number(rainArr[i]?.w ?? 0)
+            }
+
+            const gradient = ctx.createRadialGradient(250, 450, 140, 250, 300, 600)
+            if (localStorage.getItem('ots:theme') === 'dark') {
+                gradient.addColorStop(0, 'rgba(100, 170, 160, 0.2)')
+                gradient.addColorStop(0.1, 'rgba(100, 160, 160, 0.12)')
+                gradient.addColorStop(0.2, 'rgba(100, 150, 150, 0.1)')
+                gradient.addColorStop(1, 'rgba(100, 140, 140, .08)')
+            } else {
+                gradient.addColorStop(0, 'rgba(0, 0, 0, 0.2)')
+            }
+            ctx.fillStyle = gradient
+            ctx.fillRect(rainArr[i].x, rainArr[i].y, rainArr[i].z, 4)
+        }
+    }
+
+    /**
+     * Add lightning effect
+     */
+    function simulateWeather(timer: number) {
+        if (weatherEnabled) {
+            lightningAlpha = 0
+            if (timer > 350) {
+                lightningAlpha = (500 - timer) * 0.004
+            } else if (timer < 350 && timer > 250) {
+                lightningAlpha = (timer - 250) * 0.006
+            } else if (timer < 250 && timer >= 100) {
+                lightningAlpha = (250 - timer) * 0.004
+            } else if (timer < 100 && timer >= 0) {
+                lightningAlpha = timer * 0.006
+            }
+
+            if (lightningAlpha > 0) {
+                ctx.fillStyle = localStorage.getItem('ots:theme') === 'dark'
+                    ? `rgba(250, 250, 245, ${lightningAlpha})`
+                    : `rgba(0, 0, 0, ${lightningAlpha})`
+                ctx.fillRect(0, 0, canvasWidth, canvasHeight)
+            }
+        }
+    }
+
+    function mainLoop() {
+        const canvas = document.querySelector('canvas')
+        if (canvas) {
+            updateCanvasPosition(canvas, rainContainer)
+        }
+        msTimer += 30
+        if (lightningTimer < 0) {
+            lightningTimer = 8000
+        } else {
+            lightningTimer -= 30
+        }
+
+        // ctx.fillStyle = "#202426"
+        canvasFill = localStorage.getItem('ots:theme') === 'dark' ? "#0f172a" : "#ffffff"
+        ctx.fillStyle = canvasFill
+        ctx.fillRect(0, 0, canvasWidth, canvasHeight)
+
+        paintRain()
+
+        if (lightningTimer < 500) {
+            simulateWeather(lightningTimer)
+        }
+    }
+
+    let rainContainer: HTMLDivElement
+    let ctx: CanvasRenderingContext2D,
+        canvasWidth: number,
+        canvasHeight: number,
+        canvasFill: string,
+        msTimer = 0.0,
+        lightningTimer: number,
+        lightningAlpha,
+        rainArr: { x: number, y: number, z: number, w?: number }[] = [],
+        rainSpeed = 0.5,
+        gameLoop: number,
+        weatherEnabled = true
+    
+    onMount(() => {
+        // const backgroundMusic = new Audio('/audio/reverse-bgm.mp3')
+        // backgroundMusic.loop = true
+        // backgroundMusic.addEventListener('canplaythrough', () => {
+        //     backgroundMusic.play()
+        // })
+        const div = document.createElement('div')
+        const canvas = document.createElement('canvas')
+        canvasFill = localStorage.getItem('ots:theme') === 'dark' ? "#0f172a" : "#ffffff"
+        const resizeObserver = new ResizeObserver((entries) => {
+            rainArr = []
+            createRain()
+        })
+        resizeObserver.observe(rainContainer)
+        ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+
+        rainContainer.appendChild(div)
+        div.style.position = 'fixed'
+        div.appendChild(canvas)
+        updateCanvasPosition(canvas, rainContainer)
+        createRain()
+
+        lightningTimer = 8000
+        lightningAlpha = 0
+
+        // 1 frame every 30ms
+        if (typeof gameLoop !== undefined) {
+            clearInterval(gameLoop)
+            gameLoop = setInterval(mainLoop, 30)
+        }
+    })
+</script>
+
+<div bind:this={rainContainer} class="rain-container fixed inset-0 -z-10 pointer-events-none"></div>
