@@ -2,11 +2,13 @@
     import { onMount } from 'svelte'
     import { createEventDispatcher } from 'svelte'
 
+    let { class: className } = $props<{ class?: string }>()
+
     const dispatch = createEventDispatcher()
     const delayClass = 'delay-500'
 
-    let theme = 'dark'
-    let enabled = false
+    let theme = $state('dark')
+    let enabled = $state(false)
     let toggleButton: HTMLButtonElement
 
     onMount(() => {
@@ -37,8 +39,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/theme-toggles@4.10.1/css/classic.min.css">
 </svelte:head>
 
-<button bind:this={toggleButton} onclick={toggle} class="theme-toggle text-slate-800 data-[state=enabled]:text-amber-300 transition-colors delay-500 {$$props.class}" class:theme-toggle--toggled={enabled} type="button" title="Toggle theme" aria-label="Toggle theme">
-    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="1.5rem" height="1.5rem" fill="currentColor" stroke-linecap="round" class="theme-toggle__classic pointer-events-none" viewBox="0 0 32 32">
+<button bind:this={toggleButton} onclick={toggle} class="theme-toggle group flex items-center gap-2 text-slate-800 transition-colors delay-500 outline-none {className}" class:theme-toggle--toggled={enabled} type="button" title="Toggle theme" aria-label="Toggle theme">
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="1.5rem" height="1.5rem" fill="currentColor" stroke-linecap="round" class="theme-toggle__classic pointer-events-none group-data-[state=enabled]:text-amber-300" viewBox="0 0 32 32">
         <clipPath id="theme-toggle__classic__cutout">
             <path d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
         </clipPath>
@@ -56,4 +58,5 @@
             </g>
         </g>
     </svg>
+    <span class="text-slate-800 dark:text-white group-hover:text-tuscany-600 group-focus:text-tuscany-600 md:sr-only">Switch to {theme === 'dark' ? 'light' : 'dark'} mode</span>
 </button>

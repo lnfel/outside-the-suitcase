@@ -9,15 +9,17 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="%sveltekit.assets%/css/main.css">
 	</head>
-	<body data-sveltekit-preload-data="hover" class="mukta-regular text-slate-800 dark:text-white bg-indigo-100 dark:bg-slate-900 transition-colors delay-500">
+    <!-- Do not transition colors to prevent FART: https://css-tricks.com/flash-of-inaccurate-color-theme-fart/ -->
+	<body data-sveltekit-preload-data="hover" class="mukta-regular text-slate-800 dark:text-white bg-indigo-100 dark:bg-slate-900">
         <script>
             const theme = localStorage.getItem('ots:theme')
             if (theme === 'dark') document.documentElement.classList.add('dark');
         </script>
 
-		<div style="display: contents">%sveltekit.body%</div>
+		<div class="min-h-screen relative flex flex-col-reverse">%sveltekit.body%</div>
 	</body>
 </html>

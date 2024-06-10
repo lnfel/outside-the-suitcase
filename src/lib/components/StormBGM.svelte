@@ -79,7 +79,7 @@
     }
 </script>
 
-<button onclick={toggleAudio} type="button" class="outline-none hover:text-tuscany-600 focus:text-tuscany-600">
+<button onclick={toggleAudio} type="button" class="outline-none flex items-center gap-2 md:static hover:text-tuscany-600 focus:text-tuscany-600">
     <svg class="round w-6 h-6" id="waveform">
         <defs>
             <radialGradient id="rgrad" cx="50%" cy="50%" r="50%">         
@@ -100,4 +100,5 @@
             values=""/>
         </path>
     </svg>
+    <span class="md:sr-only">{bgmEnabled ? 'Snap back to reality' : 'Listen to the melody'}</span>
 </button>
