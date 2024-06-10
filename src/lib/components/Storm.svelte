@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte"
+    import { base } from "$app/paths"
 
     // CSS Rain Effect
     // https://codepen.io/REast/pen/ExZeWP
@@ -86,6 +87,9 @@
                 lightningAlpha = (250 - timer) * 0.004
             } else if (timer < 100 && timer >= 0) {
                 lightningAlpha = timer * 0.006
+                // Reset everything to default
+                weatherEnabled = false // disable lightning
+                lightningTimer = 8000 // reset lightning timer to 3 seconds
             }
 
             if (lightningAlpha > 0) {
@@ -103,10 +107,12 @@
             updateCanvasPosition(canvas, rainContainer)
         }
         msTimer += 30
-        if (lightningTimer < 0) {
-            lightningTimer = 8000
-        } else {
-            lightningTimer -= 30
+        if (weatherEnabled) {
+            if (lightningTimer < 0) {
+                lightningTimer = 8000
+            } else {
+                lightningTimer -= 30
+            }
         }
 
         // ctx.fillStyle = "#202426"
@@ -121,6 +127,28 @@
         }
     }
 
+    function momentWithSonetto(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
+        weatherEnabled = true
+        const phrases = [
+            "Timekeeper",
+            "It's raining outside.",
+            "and the raindrops... *Gasp*",
+            "Eeeek!"
+        ]
+        let counter = 0
+        dialougeLoop = setInterval(() => {
+            dialouge = phrases[counter]
+            counter++
+            if (!weatherEnabled) {
+                setTimeout((target: HTMLButtonElement) => {
+                    dialouge = ""
+                    target.blur()
+                    clearInterval(dialougeLoop)
+                }, 2000, event.target)
+            }
+        }, 2000)
+    }
+
     let rainContainer: HTMLDivElement
     let ctx: CanvasRenderingContext2D,
         canvasWidth: number,
@@ -132,7 +160,9 @@
         rainArr: { x: number, y: number, z: number, w?: number }[] = [],
         rainSpeed = 0.5,
         gameLoop: number,
-        weatherEnabled = true
+        weatherEnabled = $state(false),
+        dialouge = $state(""),
+        dialougeLoop: number
     
     onMount(() => {
         // const backgroundMusic = new Audio('/audio/reverse-bgm.mp3')
@@ -168,3 +198,10 @@
 </script>
 
 <div bind:this={rainContainer} class="rain-container fixed inset-0 -z-10 pointer-events-none"></div>
+
+<div class="fixed top-6 right-10 md:right-20 flex items-center gap-2">
+    <span class="crimson-text-regular text-sm">{ dialouge }</span>
+    <button onclick={momentWithSonetto} type="button" class="opacity-20 outline-none hover:opacity-100 focus:opacity-100 transition-opacity">
+        <img src="{base}/img/character/sonetto.webp" alt="Vertin" class="w-10 h-10 rounded-full overflow-hidden pointer-events-none">
+    </button>
+</div>
