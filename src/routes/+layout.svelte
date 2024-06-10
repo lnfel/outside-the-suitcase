@@ -16,7 +16,7 @@
 
 <Storm />
 
-<header class="sticky bottom-0 flex flex-col-reverse md:flex-row gap-6 items-stretch justify-between backdrop-blur-sm px-10 md:px-20 py-6">
+<header class="sticky bottom-0 flex flex-col-reverse md:flex-row gap-6 items-stretch justify-between backdrop-blur-md dark:bg-slate-900/70 px-10 md:px-20 py-6">
     <div class="flex items-center justify-between">
         <a href="{base}/" class="group flex items-center md:flex-col md:items-start outline-none gap-2 md:gap-0">
             <img src="{base}/jessica-ms-international.gif" alt="Ms. International" class="w-12 h-12 md:hidden" />
