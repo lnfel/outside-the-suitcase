@@ -5,29 +5,31 @@
 		<link rel="icon" href="/outside-the-suitcase/jessica-ms-international.gif" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/entry/start.C0Hlu2pf.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/main-client.9EOfzH7n.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/runtime.0WCIqXPU.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/singletons.2FQu0Ord.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/entry/app.Dhqdhqc3.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/entry/start.DEtUcW7N.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/main-client.Brpx4oTM.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/runtime.BA7T5l1H.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/singletons.oLXgHvKw.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/entry/app.cSWwwo-P.js">
 		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/disclose-version.BDr9Qe-U.js">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="/outside-the-suitcase/css/main.css">
 	</head>
-	<body data-sveltekit-preload-data="hover" class="mukta-regular text-slate-800 dark:text-white bg-indigo-100 dark:bg-slate-900 transition-colors delay-500">
+    <!-- Do not transition colors to prevent FART: https://css-tricks.com/flash-of-inaccurate-color-theme-fart/ -->
+	<body data-sveltekit-preload-data="hover" class="mukta-regular text-slate-800 dark:text-white bg-indigo-100 dark:bg-slate-900">
         <script>
             const theme = localStorage.getItem('ots:theme')
             if (theme === 'dark') document.documentElement.classList.add('dark');
         </script>
 
-		<div style="display: contents">
+		<div class="min-h-screen relative flex flex-col-reverse">
 			<script>
 				{
-					__sveltekit_1l511em = {
+					__sveltekit_1x8juds = {
 						assets: "/outside-the-suitcase",
 						base: "/outside-the-suitcase",
 						env: null
@@ -36,8 +38,8 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/outside-the-suitcase/_app/immutable/entry/start.C0Hlu2pf.js"),
-						import("/outside-the-suitcase/_app/immutable/entry/app.Dhqdhqc3.js")
+						import("/outside-the-suitcase/_app/immutable/entry/start.DEtUcW7N.js"),
+						import("/outside-the-suitcase/_app/immutable/entry/app.cSWwwo-P.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});

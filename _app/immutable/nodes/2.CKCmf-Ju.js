@@ -1,0 +1,1 @@
+import"../chunks/disclose-version.BDr9Qe-U.js";import{p as a,A as o,f as s,$ as t}from"../chunks/runtime.BA7T5l1H.js";function i(p,e){a(e,!1),o(r=>{t.title="Reverse 1999 Global Leaderboard | Outside the suitcase"}),s()}export{i as component};
