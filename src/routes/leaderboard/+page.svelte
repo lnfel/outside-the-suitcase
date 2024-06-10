@@ -86,8 +86,8 @@
     <title>Reverse 1999 Global Leaderboard | Outside the suitcase</title>
 </svelte:head>
 
-<main class="px-10 md:px-20 py-6 space-y-6">
-    <h2 class="crimson-text-bold text-tuscany-600 text-3xl">Mane's Bulletin Leaderboard</h2>
+<main class="px-10 md:px-20 py-6 pt-20 md:pt-6 space-y-6">
+    <h2 class="crimson-text-bold text-tuscany-600 dark:text-white text-3xl">Mane's Bulletin Leaderboard</h2>
 
     <div class="flex items-center gap-2">
         <label for="category">Category</label>
@@ -101,33 +101,39 @@
     {#each raidGroup as raidTitle}
         <article>
             <h3 class="py-4 text-xl">{ raidTitle }</h3>
-            <table class="w-full table-auto border-collapse">
-                <thead>
-                    <tr>
-                        {#each headers as header}
-                            <td class="py-2 text-lg">{ header }</td>
-                        {/each}
-                    </tr>
-                </thead>
-                <tbody>
-                    {#each data[category][raidTitle]?.values ?? [] as entry}
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-left border-collapse">
+                    <thead>
                         <tr>
-                            <td class="py-1"></td>
-                            <td class="py-1">{ entry["Entry Tag"] }</td>
-                            <td class="py-2">{ entry["Entry Date"] }</td>
-                            <td class="py-2">{ entry.Username }</td>
-                            <td class="py-2">{ entry.Score }</td>
-                            <td class="py-2 flex items-center">
-                                {#each entry.characters as character}
-                                    {#if characterMap?.[character.Name]}
-                                        <img src="{characterMap[character.Name]?.thumbnail ?? ""}" alt="{character.Name}" class="w-10 h-10" />
-                                    {/if}
-                                {/each}
-                            </td>
+                            {#each headers as header}
+                                <th scope="col" class="px-4 py-2 text-lg whitespace-nowrap text-white bg-tuscany-600">{ header }</th>
+                            {/each}
                         </tr>
-                    {/each}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {#each data[category][raidTitle]?.values ?? [] as entry}
+                            <tr class="odd:bg-tuscany-200 even:bg-tuscany-100">
+                                <td class="px-4 py-2 dark:text-slate-800"></td>
+                                <td class="px-4 py-2 dark:text-slate-800">{ entry["Entry Tag"] }</td>
+                                <td class="px-4 py-2 dark:text-slate-800">{ entry["Entry Date"] }</td>
+                                <td class="px-4 py-2 dark:text-slate-800">{ entry.Username }</td>
+                                <td class="px-4 py-2 dark:text-slate-800">{ entry.Score }</td>
+                                <!-- flex items-center -->
+                                <td class="dark:text-slate-800">
+                                    <span class="flex items-center px-4 py-2">
+                                        {#each entry.characters as character}
+                                            {#if characterMap?.[character.Name]}
+                                                <img src="{characterMap[character.Name]?.thumbnail ?? ""}" alt="{character.Name}" class="inline w-10 h-10" />
+                                            {/if}
+                                        {/each}
+                                    </span>
+                                </td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </table>
+            </div>
         </article>
     {/each}
 </main>
