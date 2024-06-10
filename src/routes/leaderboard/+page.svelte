@@ -3,6 +3,7 @@
 
     let category: Sheet.Category = 'f2p'
     const headers = [
+        "Rank",
         "Entry Tag",
         "Entry Date",
         "Username",
@@ -85,35 +86,38 @@
     <title>Reverse 1999 Global Leaderboard | Outside the suitcase</title>
 </svelte:head>
 
-<div class="px-4 py-2">
-    <label for="category">Category</label>
-    <select bind:value={category} name="category" id="category">
-        {#each categories ?? [] as category}
-            <option value="{category}">{ category.toUpperCase() }</option>
-        {/each}
-    </select>
-</div>
+<main class="px-10 md:px-20 py-6 space-y-6">
+    <h2 class="crimson-text-bold text-tuscany-600 text-3xl">Mane's Bulletin Leaderboard</h2>
 
-<main class="space-y-6">
+    <div class="flex items-center gap-2">
+        <label for="category">Category</label>
+        <select bind:value={category} name="category" id="category" class="appearance-none text-white text-sm bg-tuscany-600 outline-none hover:bg-tuscany-500 focus:bg-tuscany-500 pl-4 pr-8 py-1 bg-[right_0.5rem_center] bg-no-repeat bg-[length:1.5em_1.5em]">
+            {#each categories ?? [] as category}
+                <option value="{category}">{ category.toUpperCase() }</option>
+            {/each}
+        </select>
+    </div>
+
     {#each raidGroup as raidTitle}
         <article>
-            <h2 class="px-4 py-4 text-xl">{ raidTitle }</h2>
+            <h3 class="py-4 text-xl">{ raidTitle }</h3>
             <table class="w-full table-auto border-collapse">
                 <thead>
                     <tr>
                         {#each headers as header}
-                            <td class="px-4 py-2 text-lg">{ header }</td>
+                            <td class="py-2 text-lg">{ header }</td>
                         {/each}
                     </tr>
                 </thead>
                 <tbody>
                     {#each data[category][raidTitle]?.values ?? [] as entry}
                         <tr>
-                            <td class="px-4 py-1">{ entry["Entry Tag"] }</td>
-                            <td class="px-4 py-2">{ entry["Entry Date"] }</td>
-                            <td class="px-4 py-2">{ entry.Username }</td>
-                            <td class="px-4 py-2">{ entry.Score }</td>
-                            <td class="px-4 py-2 flex items-center">
+                            <td class="py-1"></td>
+                            <td class="py-1">{ entry["Entry Tag"] }</td>
+                            <td class="py-2">{ entry["Entry Date"] }</td>
+                            <td class="py-2">{ entry.Username }</td>
+                            <td class="py-2">{ entry.Score }</td>
+                            <td class="py-2 flex items-center">
                                 {#each entry.characters as character}
                                     {#if characterMap?.[character.Name]}
                                         <img src="{characterMap[character.Name]?.thumbnail ?? ""}" alt="{character.Name}" class="w-10 h-10" />
@@ -127,3 +131,18 @@
         </article>
     {/each}
 </main>
+
+<style>
+    table {
+        counter-reset: ranking;
+    }
+
+    table > tbody tr > td:first-child::before {
+        counter-increment: ranking;
+        content: counter(ranking);
+    }
+
+    select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    }
+</style>
