@@ -102,8 +102,6 @@
                     : `rgba(0, 0, 0, ${lightningAlpha})`
                 ctx.fillRect(0, 0, canvasWidth, canvasHeight)
             }
-
-            window.requestAnimationFrame(simulateWeather)
         }
     }
 
