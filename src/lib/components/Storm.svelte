@@ -143,21 +143,70 @@
         const phrases = [
             "Timekeeper",
             "It's raining outside.",
-            "and the raindrops... *Gasp*",
+            "and the raindrops...",
+            "*Gasp*",
             "Eeeek!"
         ]
-        let counter = 0
-        dialougeLoop = setInterval(() => {
-            dialouge = phrases[counter]
-            counter++
-            if (!weatherEnabled) {
+        const typeSpeed = 1
+        // let charIndex = 0
+        // let counter = 0
+        function within(timer: number, rangeStart: number, rangeEnd: number) {
+            return timer <= rangeStart && timer >= rangeEnd
+        }
+        function typeWriter(phrase: string) {
+            const start = performance.now()
+            const duration = (phrase.length * 60) / typeSpeed
+            console.log(duration, phrase)
+            function tick() {
+                const id = window.requestAnimationFrame(tick)
+                const now = performance.now()
+                const i = Math.trunc((phrase.length * (now - start)) / duration)
+                if (dialouge !== phrase) {
+                    dialouge = phrase.slice(0, i)
+                } else {
+                    window.cancelAnimationFrame(id)
+                }
+            }
+            tick()
+        }
+        function sonnettoSpeaks() {
+            sonnettoSpeaksFrameRequest = window.requestAnimationFrame(sonnettoSpeaks)
+            if (weatherEnabled) {
+                if (within(lightningTimer, 8000, 6000)) {
+                    typeWriter(phrases[0])
+                }
+                if (within(lightningTimer, 6000, 4000)) {
+                    typeWriter(phrases[1])
+                }
+                if (within(lightningTimer, 4000, 2000)) {
+                    typeWriter(phrases[2])
+                }
+                if (within(lightningTimer, 2000, 500)) {
+                    typeWriter(phrases[3])
+                }
+                if (within(lightningTimer, 500, 0)) {
+                    typeWriter(phrases[4])
+                }
+            } else {
+                cancelAnimationFrame(sonnettoSpeaksFrameRequest)
                 setTimeout((target: HTMLButtonElement) => {
                     dialouge = ""
                     target.blur()
-                    clearInterval(dialougeLoop)
                 }, 2000, event.target)
             }
-        }, 2000)
+        }
+        sonnettoSpeaks()
+        // dialougeLoop = setInterval(() => {
+        //     dialouge = phrases[counter]
+        //     counter++
+        //     if (!weatherEnabled) {
+        //         setTimeout((target: HTMLButtonElement) => {
+        //             dialouge = ""
+        //             target.blur()
+        //             clearInterval(dialougeLoop)
+        //         }, 2000, event.target)
+        //     }
+        // }, 2000)
     }
 
     let rainContainer: HTMLDivElement
@@ -166,7 +215,7 @@
         canvasHeight: number,
         canvasFill: string,
         msTimer = 0.0,
-        lightningTimer = 8000,
+        lightningTimer = $state(8000),
         lightningAlpha = 0,
         rainArr: { x: number, y: number, z: number, w?: number }[] = [],
         rainSpeed = 0.5,
@@ -174,7 +223,8 @@
         gameLoop: number,
         weatherEnabled = $state(false),
         dialouge = $state(""),
-        dialougeLoop: number
+        dialougeLoop: number,
+        sonnettoSpeaksFrameRequest = $state(0)
     
     onMount(() => {
         // const backgroundMusic = new Audio('/audio/reverse-bgm.mp3')
