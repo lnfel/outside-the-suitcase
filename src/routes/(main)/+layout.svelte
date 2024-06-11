@@ -3,6 +3,7 @@
 
     import { page } from '$app/stores'
     import { base } from '$app/paths'
+    import { onMount } from 'svelte'
 
     import DarkmodeToggle from '$lib/components/DarkmodeToggle.svelte'
     import Storm from '$lib/components/Storm.svelte'
@@ -10,16 +11,28 @@
 
     let navDisplay = $state(false)
     function toggleNav(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
+        event.stopPropagation()
         navDisplay = !navDisplay
     }
+
+    onMount(() => {
+        document.documentElement.addEventListener('click', () => {
+            navDisplay = false
+        })
+        document.documentElement.addEventListener('keyup', (event) => {
+            if (event.key === 'Escape') {
+                navDisplay = false
+            }
+        })
+    })
 </script>
 
 <Storm />
 
-<header class="sticky bottom-0 flex flex-col-reverse md:flex-row gap-6 items-stretch justify-between backdrop-blur-md {$page.url.pathname === `${base}/leaderboard/` ? 'dark:bg-slate-900/70' : ''} px-10 md:px-20 py-6">
+<header class="sticky bottom-0 z-10 flex flex-col-reverse md:flex-row gap-6 items-stretch justify-between backdrop-blur-md {$page.url.pathname === `${base}/leaderboard/` ? 'dark:bg-slate-900/70' : ''} px-10 md:px-20 py-6">
     <div class="flex items-center justify-between">
         <a href="{base}/" class="group flex items-center md:flex-col md:items-start outline-none gap-2 md:gap-0">
-            <img src="{base}/jessica-ms-international.gif" alt="Ms. International" class="w-12 h-12 md:hidden" />
+            <img src="{base}/jessica-ms-international.gif" alt="Ms. International" loading="lazy" class="w-12 h-12 md:hidden" />
             <h1 class="crimson-text-bold text-3xl tracking-wider md:hidden group-hover:text-tuscany-600 group-focus:text-tuscany-600">OTS</h1>
             <h1 class="crimson-text-bold text-3xl sr-only md:not-sr-only group-hover:text-tuscany-600 group-focus:text-tuscany-600">Outside the suitcase</h1>
             <span class="mukta-regular sr-only md:not-sr-only">Reverse 1999 Global Leaderboard</span>
@@ -32,8 +45,8 @@
 
     <!-- absolute bottom-full md:static  -->
     <nav class="md:flex flex flex-col md:flex-row md:items-center gap-4 mukta-regular text-lg tracking-wide" class:hidden={!navDisplay}>
-        <a href="{base}/" class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.url.pathname === `${base}/`}>Home</a>
-        <a href="{base}/leaderboard" class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.url.pathname === `${base}/leaderboard/`}>Leaderboard</a>
+        <a href="{base}/" onclick={() => navDisplay = false} class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.url.pathname === `${base}/`}>Home</a>
+        <a href="{base}/leaderboard" onclick={() => navDisplay = false} class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.url.pathname.includes(`${base}/leaderboard`)}>Leaderboard</a>
         <!-- https://codepen.io/adamruf/pen/GZwdrY -->
         <span class="outline-none line-through blur-[2px] select-none">Stats</span>
         <!-- <a href="{base}/stats" class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.route.id === '/stats'}>Stats</a> -->
