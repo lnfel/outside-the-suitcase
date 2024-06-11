@@ -32,7 +32,7 @@
 <header class="sticky bottom-0 z-10 flex flex-col-reverse md:flex-row gap-6 items-stretch justify-between backdrop-blur-md {$page.url.pathname === `${base}/leaderboard/` ? 'dark:bg-slate-900/70' : ''} px-10 md:px-20 py-6">
     <div class="flex items-center justify-between">
         <a href="{base}/" class="group flex items-center md:flex-col md:items-start outline-none gap-2 md:gap-0">
-            <img src="{base}/jessica-ms-international.gif" alt="Ms. International" loading="lazy" class="w-12 h-12 md:hidden" />
+            <img src="{base}/jessica-ms-international.png" alt="Ms. International" loading="lazy" class="w-12 h-12 md:hidden" />
             <h1 class="crimson-text-bold text-3xl tracking-wider md:hidden group-hover:text-tuscany-600 group-focus:text-tuscany-600">OTS</h1>
             <h1 class="crimson-text-bold text-3xl sr-only md:not-sr-only group-hover:text-tuscany-600 group-focus:text-tuscany-600">Outside the suitcase</h1>
             <span class="mukta-regular sr-only md:not-sr-only">Reverse 1999 Global Leaderboard</span>
