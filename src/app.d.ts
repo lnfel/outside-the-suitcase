@@ -4,7 +4,10 @@ declare global {
 	namespace App {
 		// interface Error {}
 		// interface Locals {}
-		// interface PageData {}
+		interface PageData {
+            f2p: Sheet.RaidGroup<T>
+            ffa: Sheet.RaidGroup<T>
+        }
 		// interface PageState {}
 		// interface Platform {}
 	}
