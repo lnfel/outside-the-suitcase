@@ -256,7 +256,7 @@
 
 <div bind:this={rainContainer} class="rain-container fixed inset-0 -z-10 pointer-events-none"></div>
 
-<div class="fixed top-6 right-10 md:right-20 flex items-center gap-2">
+<div class="fixed top-6 z-10 right-10 md:right-20 flex items-center gap-2">
     <span class="crimson-text-regular text-sm">{ dialouge }</span>
     <button onclick={momentWithSonetto} type="button" class="opacity-20 outline-none hover:opacity-100 focus:opacity-100 transition-opacity">
         <img src="{base}/img/character/sonetto.webp" alt="Vertin" class="w-10 h-10 rounded-full overflow-hidden pointer-events-none">
