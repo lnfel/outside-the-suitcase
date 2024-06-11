@@ -11,7 +11,7 @@
             </a>
         </div>
         <div class="max-w-[80ch]">
-            This website project is dedicated to aggregating data from the <a href="https://docs.google.com/spreadsheets/d/1wjEllGmrOEUbwKLXkURFQSZVZyfw-J2-T_lOX2FAJiw/edit#gid=395927062" class="text-tuscany-600 outline-none hover:underline focus:underline">community-made Mane's Bulletin Leaderboard</a> for non-Chinese servers by carnation1024. To submit an entry, "Brave the storm".
+            This website project is dedicated to aggregating data from the <a href="https://docs.google.com/spreadsheets/d/1wjEllGmrOEUbwKLXkURFQSZVZyfw-J2-T_lOX2FAJiw/edit#gid=395927062" target="_blank" class="text-tuscany-600 outline-none hover:underline focus:underline">community-made Mane's Bulletin Leaderboard</a> for non-Chinese servers by carnation1024. To submit an entry, "Brave the storm".
         </div>
     </div>
 
