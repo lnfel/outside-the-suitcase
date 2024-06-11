@@ -154,7 +154,6 @@
         function typeWriter(phrase: string) {
             const start = performance.now()
             const duration = (phrase.length * 60) / typeSpeed
-            console.log(duration, phrase)
             function tick() {
                 const id = window.requestAnimationFrame(tick)
                 const now = performance.now()
