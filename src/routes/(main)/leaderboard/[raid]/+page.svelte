@@ -5,6 +5,10 @@
     let category: Sheet.Category = $state('f2p')
 </script>
 
+<svelte:head>
+    <title>{ data.raid } | Outside the suitcase</title>
+</svelte:head>
+
 <main class="flex-grow space-y-6">
     <h3 class="crimson-text-bold text-tuscany-600 dark:text-white text-2xl">{ data.raid }</h3>
 

@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Reverse 1999 Global Leaderboard | Outside the suitcase</title>
+    <title>Mane's Bulletin Leaderboard | Outside the suitcase</title>
 </svelte:head>
 
 <!-- px-10 md:px-20 py-6 pt-20 md:pt-6 -->
