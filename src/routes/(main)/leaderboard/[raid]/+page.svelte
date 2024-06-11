@@ -44,10 +44,10 @@
                         <td class="px-4 py-2 dark:text-slate-800">{ entry.Score }</td>
                         <!-- flex items-center -->
                         <td class="dark:text-slate-800">
-                            <span class="flex items-center px-4 py-2">
+                            <span class="flex items-center min-w-48 px-4 py-2">
                                 {#each entry.characters as character}
                                     {#if data.characterMap?.[character.Name]}
-                                        <img src="{data.characterMap[character.Name]?.thumbnail ?? ""}" alt="{character.Name}" class="inline w-10 h-10" />
+                                        <img src="{data.characterMap[character.Name]?.thumbnail ?? ""}" alt="{character.Name}" width="40" height="40" class="inline w-10 h-10" />
                                     {/if}
                                 {/each}
                             </span>
