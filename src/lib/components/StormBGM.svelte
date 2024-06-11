@@ -4,7 +4,15 @@
     import WaveformWorker from '$lib/worker/waveform-path?worker'
     import WaveformWorkletURL from '$lib/worker/waveform-worklet?url'
 
+    const statusMap = {
+        'idle': "Listen to the melody",
+        'loading': "Searching for the source",
+        'playing': "Snap back to reality",
+        'paused': "Listen again"
+    }
+
     let bgmEnabled = $state(false)
+    let status: 'idle' | 'loading' | 'playing' | 'paused' = $state('idle')
     let bgmLoaded = $state(false)
     let audioElement: HTMLAudioElement | undefined = $state()
     let path: string = $state("")
@@ -61,17 +69,21 @@
     }
 
     async function toggleAudio(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
+        event.stopPropagation()
         bgmEnabled = !bgmEnabled
 
         if (!bgmLoaded && bgmEnabled) {
+            status = 'loading'
             await loadBgm()
         }
 
         if (bgmEnabled && audioElement) {
+            status = 'playing'
             audioElement.play()
             document.querySelector('#waveform path animate')?.setAttribute('values', path)
             document.querySelector('#waveform circle')?.classList.add('hidden')
         } else if (!bgmEnabled && audioElement) {
+            status = 'paused'
             document.querySelector('#waveform path animate')?.setAttribute('values', '')
             document.querySelector('#waveform circle')?.classList.remove('hidden')
             audioElement.pause()
@@ -100,5 +112,5 @@
             values=""/>
         </path>
     </svg>
-    <span class="md:sr-only">{bgmEnabled ? 'Snap back to reality' : 'Listen to the melody'}</span>
+    <span class="md:sr-only">{statusMap[status]}</span>
 </button>
