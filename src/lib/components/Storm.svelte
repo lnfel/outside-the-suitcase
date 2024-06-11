@@ -1,11 +1,16 @@
 <script lang="ts">
     import { onMount } from "svelte"
     import { base } from "$app/paths"
+    // import * as Three from 'three'
+
+    // let clock = new Three.Clock()
 
     // CSS Rain Effect
     // https://codepen.io/REast/pen/ExZeWP
     // Canvas Bubbles
     // https://codepen.io/MarioD/pen/gWregQ
+    // Animating with requestAnimationFrame
+    // https://joshondesign.com/p/books/canvasdeepdive/chapter04.html
 
     function updateCanvasPosition(canvas: HTMLCanvasElement, container: HTMLDivElement) {
         const containerWidth = container.clientWidth
@@ -18,9 +23,8 @@
     }
 
     function createRain() {
-        const length = 500
         rainArr = []
-        for (let i = length - 1; i >= 0; i--) {
+        for (let i = rainCount - 1; i >= 0; i--) {
             rainArr.push({
                 x: 1,
                 y: 0,
@@ -28,7 +32,7 @@
             })
         }
 
-        for (let j = 0; j < 500; j++) {
+        for (let j = 0; j < rainCount; j++) {
             rainArr[j].x = Math.floor((Math.random() * document.documentElement.clientWidth) + 9)
             rainArr[j].y = Math.floor((Math.random() * rainContainer.clientHeight) + 9)
             rainArr[j].z = Math.floor((Math.random() * 2) + 1)
@@ -40,7 +44,7 @@
      * Paints and updates the raindrops position on the canvas
      */
     function paintRain() {
-        for (let i = 0; i < 500; i++) {
+        for (let i = 0; i < rainCount; i++) {
             // use this for resetting falling rain
             // if (rainArr[i].y >= rainContainer.clientHeight) {
             //     rainArr[i].y -= rainContainer.clientHeight
@@ -89,7 +93,7 @@
                 lightningAlpha = timer * 0.006
                 // Reset everything to default
                 weatherEnabled = false // disable lightning
-                lightningTimer = 8000 // reset lightning timer to 3 seconds
+                lightningTimer = 8000 // reset lightning timer
             }
 
             if (lightningAlpha > 0) {
@@ -98,20 +102,24 @@
                     : `rgba(0, 0, 0, ${lightningAlpha})`
                 ctx.fillRect(0, 0, canvasWidth, canvasHeight)
             }
+
+            window.requestAnimationFrame(simulateWeather)
         }
     }
 
     function mainLoop() {
+        // const elapsedTime = clock.getElapsedTime()
+
         const canvas = document.querySelector('canvas')
         if (canvas) {
             updateCanvasPosition(canvas, rainContainer)
         }
-        msTimer += 30
+        // msTimer += 30 // this is used for the lamp post
         if (weatherEnabled) {
             if (lightningTimer < 0) {
                 lightningTimer = 8000
             } else {
-                lightningTimer -= 30
+                lightningTimer -= 15 // previously using 30 when using setInterval
             }
         }
 
@@ -123,8 +131,11 @@
         paintRain()
 
         if (lightningTimer < 500) {
+            // console.log(Number(elapsedTime.toFixed(0)))
             simulateWeather(lightningTimer)
         }
+
+        window.requestAnimationFrame(mainLoop)
     }
 
     function momentWithSonetto(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
@@ -155,10 +166,11 @@
         canvasHeight: number,
         canvasFill: string,
         msTimer = 0.0,
-        lightningTimer: number,
-        lightningAlpha,
+        lightningTimer = 8000,
+        lightningAlpha = 0,
         rainArr: { x: number, y: number, z: number, w?: number }[] = [],
         rainSpeed = 0.5,
+        rainCount = 300,
         gameLoop: number,
         weatherEnabled = $state(false),
         dialouge = $state(""),
@@ -186,14 +198,12 @@
         updateCanvasPosition(canvas, rainContainer)
         createRain()
 
-        lightningTimer = 8000
-        lightningAlpha = 0
-
         // 1 frame every 30ms
-        if (typeof gameLoop !== undefined) {
-            clearInterval(gameLoop)
-            gameLoop = setInterval(mainLoop, 30)
-        }
+        // if (typeof gameLoop !== undefined) {
+        //     clearInterval(gameLoop)
+        //     gameLoop = setInterval(mainLoop, 30)
+        // }
+        mainLoop()
     })
 </script>
 
