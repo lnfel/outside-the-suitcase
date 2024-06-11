@@ -10,9 +10,9 @@
 </svelte:head>
 
 <main class="flex-grow space-y-6">
-    <h3 class="crimson-text-bold text-tuscany-600 dark:text-white text-2xl">{ data.raid }</h3>
+    <h3 class="crimson-text-bold text-tuscany-600 dark:text-white text-2xl px-10 md:px-0">{ data.raid }</h3>
 
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 px-10 md:px-0">
         <label for="category">Category</label>
         <select bind:value={category} name="category" id="category" class="appearance-none cursor-pointer text-white text-sm bg-tuscany-600 outline-none hover:bg-tuscany-500 focus:bg-tuscany-500 pl-4 pr-8 py-1 bg-[right_0.5rem_center] bg-no-repeat bg-[length:1.5em_1.5em]">
             {#each data.categories ?? [] as category}

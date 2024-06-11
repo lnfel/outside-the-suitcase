@@ -23,11 +23,11 @@
     const raidGroup: Sheet.RaidTitle[] = Object.keys(data.f2p) as Sheet.RaidTitle[]
 </script>
 
-<div class="flex-grow px-10 md:px-20 py-6 pt-20 md:pt-6 space-y-6">
-    <h2 class="crimson-text-bold text-tuscany-600 dark:text-white text-3xl">Mane's Bulletin Leaderboard</h2>
+<div class="flex-grow md:px-20 py-6 pt-20 md:pt-6 space-y-6">
+    <h2 class="crimson-text-bold text-tuscany-600 dark:text-white text-3xl px-10 md:px-0">Mane's Bulletin Leaderboard</h2>
 
     <div class="flex flex-col md:flex-row gap-4">
-        <aside class="flex-shrink-0 sticky top-6 backdrop-blur-sm md:backdrop-blur-none">
+        <aside class="flex-shrink-0 sticky top-6 backdrop-blur-sm md:backdrop-blur-none px-10 md:px-0">
             <div class="sticky top-[9rem] flex md:flex-col gap-2 md:top-20">
                 {#each raidGroup as raid}
                     <a href="{base}/leaderboard/{raid.toLowerCase().split(" ").join("-")}" class="{$page.params.raid === raid.toLowerCase().split(" ").join("-") ? 'bg-tuscany-600 text-white' : ''} whitespace-nowrap outline-none hover:text-white focus:text-white hover:bg-tuscany-600 focus:bg-tuscany-600 p-0.5 md:px-2 md:py-1">
