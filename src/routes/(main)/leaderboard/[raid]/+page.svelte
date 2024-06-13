@@ -1,8 +1,17 @@
 <script lang="ts">
     import { page } from '$app/stores'
+    import { onNavigate } from '$app/navigation'
 
     let { data } = $props()
-    let category: Sheet.Category = $state('f2p')
+    let category: Sheet.Category = $state(data.category as Sheet.Category)
+
+    onNavigate(() => {
+        /**
+         * [BUG] data.category and $page.data.category are bugged between +layout.ts, +page.ts and +page.svelte
+         * This is why we get searchParams from window.location instead
+         */
+        category = (new URL(window.location.toString()).searchParams.get('category') ?? 'f2p') as Sheet.Category
+    })
 </script>
 
 <svelte:head>

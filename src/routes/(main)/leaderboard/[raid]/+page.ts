@@ -1,4 +1,4 @@
-export const load = async ({ parent, params }) => {
+export const load = async ({ parent, params, url }) => {
     const { f2p, ffa } = await parent()
     const raidGroup: Sheet.RaidTitle[] = Object.keys(f2p) as Sheet.RaidTitle[]
     const raid = raidGroup.find((raid) => raid.toLowerCase().split(" ").join("-") === params.raid)
@@ -83,6 +83,7 @@ export const load = async ({ parent, params }) => {
         raid,
         headers,
         characterMap,
-        categories: ['f2p', 'ffa']
+        categories: ['f2p', 'ffa'],
+        category: url.searchParams.get('category') ?? 'f2p'
     }
 }
