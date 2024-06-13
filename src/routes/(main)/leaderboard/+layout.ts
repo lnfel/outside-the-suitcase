@@ -10,7 +10,6 @@ export const load = async ({ fetch }) => {
 
     const ffaResponse = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${PUBLIC_GLOBAL_RANKING_SPREADSHEET_ID}/values:batchGet?ranges=FFA!C10:V&ranges=FFA!Y10:AR&ranges=FFA!AU10:BN&ranges=FFA!BQ10:CJ&ranges=FFA!CM10:DF&majorDimension=ROWS&key=${PUBLIC_LAMY_API_GOOGLE_SHEETS_API_KEY}`)
     const ffaData = parseSheetData(headers, (await ffaResponse.json()).valueRanges)
-    console.log(f2pData)
 
     return {
         f2p: f2pData,
