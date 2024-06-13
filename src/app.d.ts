@@ -7,6 +7,13 @@ declare global {
 		interface PageData {
             f2p: Sheet.RaidGroup<T>
             ffa: Sheet.RaidGroup<T>
+            raid: Sheet.RaidTitle
+            // this is the headers of the table columns displayed on the page
+            // and is different from CellHeaders
+            headers: string[]
+            characterMap: import('$lib/data').CharacterMap
+            categories: Sheet.Category[]
+            category: Sheet.Category
         }
 		// interface PageState {}
 		// interface Platform {}
@@ -20,7 +27,7 @@ declare global {
             "Portray": number
             "Resonance": number
             "Amplification": number
-            "Name": string
+            "Name": keyof import('$lib/data').CharacterMap
         }
         type Entry = {
             "Entry Tag": string

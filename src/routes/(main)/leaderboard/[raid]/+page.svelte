@@ -4,7 +4,7 @@
     import { pushState, goto } from '$app/navigation'
 
     let { data } = $props()
-    let category: Sheet.Category = $state(data.category as Sheet.Category)
+    let category: Sheet.Category = $state(data.category)
 
     /**
      * Get selected category value and triggere sveltekit navigation
