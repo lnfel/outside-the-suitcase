@@ -79,10 +79,10 @@
     </div>
 
     <!-- absolute bottom-full md:static  -->
-    <nav data-state="open" class="data-[state=close]:hidden md:data-[state=close]:flex flex flex-col md:flex-row md:items-center gap-4 mukta-regular text-lg tracking-wide">
+    <nav data-state="close" class="data-[state=close]:hidden md:data-[state=close]:flex flex flex-col md:flex-row md:items-center gap-4 mukta-regular text-lg tracking-wide">
         <a href="{base}/" onclick={closeNav} class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.url.pathname === `${base}/`}>Home</a>
         <!-- Leaderboard dropdown -->
-        <div class="dropdown group md:relative" data-state="close">
+        <div data-state="close" class="dropdown group md:relative">
             <div class="flex items-center justify-between md:justify-start gap-1">
                 <a href="{base}/leaderboard" onclick={closeNav} class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.url.pathname.includes(`${base}/leaderboard`)}>Leaderboard</a>
                 <button onclick={toggleDropdown} type="button" class="outline-none hover:text-tuscany-600 focus:text-tuscany-600">
