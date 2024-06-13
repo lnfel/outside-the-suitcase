@@ -1,9 +1,23 @@
 <script lang="ts">
     import { page } from '$app/stores'
     import { onNavigate } from '$app/navigation'
+    import { pushState, goto } from '$app/navigation'
 
     let { data } = $props()
     let category: Sheet.Category = $state(data.category as Sheet.Category)
+
+    /**
+     * Get selected category value and triggere sveltekit navigation
+     */
+    function updateSearchParams(event: Event & { currentTarget: EventTarget & HTMLSelectElement }) {
+        const searchParams = new URLSearchParams(window.location.search)
+        searchParams.set('category', event.currentTarget.value)
+        const url = new URL(window.location.toString())
+        url.search = searchParams.toString()
+        console.log(url.toString())
+        // window.location.search = searchParams.toString()
+        goto(url.toString())
+    }
 
     onNavigate(() => {
         /**
@@ -23,7 +37,7 @@
 
     <div class="flex items-center gap-2 px-10 md:px-0">
         <label for="category">Category</label>
-        <select bind:value={category} name="category" id="category" class="appearance-none cursor-pointer text-white text-sm bg-tuscany-600 outline-none hover:bg-tuscany-500 focus:bg-tuscany-500 pl-4 pr-8 py-1 bg-[right_0.5rem_center] bg-no-repeat bg-[length:1.5em_1.5em]">
+        <select bind:value={category} onchange={updateSearchParams} name="category" id="category" class="appearance-none cursor-pointer text-white text-sm bg-tuscany-600 outline-none hover:bg-tuscany-500 focus:bg-tuscany-500 pl-4 pr-8 py-1 bg-[right_0.5rem_center] bg-no-repeat bg-[length:1.5em_1.5em]">
             {#each data.categories ?? [] as category}
                 <option value="{category}">{ category.toUpperCase() }</option>
             {/each}
