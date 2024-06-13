@@ -1,7 +1,8 @@
 <script lang="ts">
     import { page } from '$app/stores'
     import { base } from '$app/paths'
-    export let data: Sheet.Data<Sheet.RaidTitle>
+    
+    let { data } = $props()
 
     const raidMap: Record<Sheet.RaidTitle, { thumbnail: string }> = {
         "Darkness of the Abyss": {
