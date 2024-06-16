@@ -11,6 +11,26 @@
     // https://codepen.io/MarioD/pen/gWregQ
     // Animating with requestAnimationFrame
     // https://joshondesign.com/p/books/canvasdeepdive/chapter04.html
+    // Optimizing canvas
+    // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas
+    // TODO
+
+    let rainContainer: HTMLDivElement
+    let ctx: CanvasRenderingContext2D,
+        canvasWidth: number,
+        canvasHeight: number,
+        canvasFill: string,
+        msTimer = 0.0,
+        lightningTimer = $state(8000),
+        lightningAlpha = 0,
+        rainArr: { x: number, y: number, z: number, w?: number }[] = [],
+        rainSpeed = 0.5,
+        rainCount = 300,
+        gameLoop: number,
+        weatherEnabled = $state(false),
+        dialouge = $state(""),
+        dialougeLoop: number,
+        sonnettoSpeaksFrameRequest = $state(0)
 
     function updateCanvasPosition(canvas: HTMLCanvasElement, container: HTMLDivElement) {
         const containerWidth = container.clientWidth
@@ -205,23 +225,6 @@
         //     }
         // }, 2000)
     }
-
-    let rainContainer: HTMLDivElement
-    let ctx: CanvasRenderingContext2D,
-        canvasWidth: number,
-        canvasHeight: number,
-        canvasFill: string,
-        msTimer = 0.0,
-        lightningTimer = $state(8000),
-        lightningAlpha = 0,
-        rainArr: { x: number, y: number, z: number, w?: number }[] = [],
-        rainSpeed = 0.5,
-        rainCount = 300,
-        gameLoop: number,
-        weatherEnabled = $state(false),
-        dialouge = $state(""),
-        dialougeLoop: number,
-        sonnettoSpeaksFrameRequest = $state(0)
     
     onMount(() => {
         // const backgroundMusic = new Audio('/audio/reverse-bgm.mp3')
@@ -237,7 +240,7 @@
             createRain()
         })
         resizeObserver.observe(rainContainer)
-        ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+        ctx = canvas.getContext('2d', { alpha: false }) as CanvasRenderingContext2D
 
         rainContainer.appendChild(div)
         div.style.position = 'fixed'
