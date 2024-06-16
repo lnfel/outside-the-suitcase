@@ -1,5 +1,6 @@
 <script lang="ts">
     import { page } from '$app/stores'
+    import { base } from '$app/paths'
     import { onNavigate } from '$app/navigation'
     import { onMount } from 'svelte'
     import { goto } from '$app/navigation'
@@ -58,7 +59,7 @@
          * Resulting in user needing to click on the sidebar link twice to have the data show
          * [Solution] Use window.location.pathname for checks
          */
-        raid = (await data.sheet).raidGroup.find((raid) => raid.toLowerCase().split(" ").join("-") === window.location.pathname.replace('/leaderboard/', ''))
+        raid = (await data.sheet).raidGroup.find((raid) => raid.toLowerCase().split(" ").join("-") === window.location.pathname.replace(`${base}/leaderboard/`, '').replace('/', ''))
     })
 
     onMount(async () => {
