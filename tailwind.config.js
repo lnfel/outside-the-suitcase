@@ -24,6 +24,23 @@ const config = {
                     '900': '#662c21',
                     '950': '#3a140e',
                 },
+            },
+            animation: {
+                'loading-spin': 'loading-spin 3s infinite'
+            },
+            keyframes: {
+                'loading-spin': {
+                    '0%': { transform: 'rotate(0deg)' },
+                    '10%': { transform: 'rotate(-90deg)' },
+                    '15%': { transform: 'rotate(-90deg)' },
+                    '20%': { transform: 'rotate(-180deg)' },
+                    '25%': { transform: 'rotate(-180deg)' },
+                    '30%': { transform: 'rotate(-270deg)' },
+                    '35%': { transform: 'rotate(-270deg)' },
+                    '40%': { transform: 'rotate(-360deg)' },
+                    '50%': { transform: 'rotate(-360deg)' },
+                    '100%': { transform: 'rotate(720deg)' }
+                }
             }
         }
     },
