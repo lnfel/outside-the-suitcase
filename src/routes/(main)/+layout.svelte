@@ -84,7 +84,7 @@
         <!-- Leaderboard dropdown -->
         <div data-state="close" class="dropdown group md:relative">
             <div class="flex items-center justify-between md:justify-start gap-1">
-                <a href="{base}/leaderboard" onclick={closeNav} class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.url.pathname.includes(`${base}/leaderboard`)}>Leaderboard</a>
+                <a href="{base}/leaderboard/darkness-of-the-abyss" onclick={closeNav} class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.url.pathname.includes(`${base}/leaderboard`)}>Leaderboard</a>
                 <button onclick={toggleDropdown} type="button" class="outline-none hover:text-tuscany-600 focus:text-tuscany-600">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up-down w-5 h-5 group-data-[state=open]:hidden pointer-events-none"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-down-up w-5 h-5 group-data-[state=close]:hidden pointer-events-none"><path d="m7 20 5-5 5 5"/><path d="m7 4 5 5 5-5"/></svg>
@@ -100,6 +100,7 @@
                 </a>
             </div>
         </div>
+        <!-- <a href="{base}/stream" onclick={closeNav} class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.url.pathname === `${base}/stream`}>Stream</a> -->
         <!-- https://codepen.io/adamruf/pen/GZwdrY -->
         <span class="outline-none line-through blur-[2px] select-none">Stats</span>
         <!-- <a href="{base}/stats" class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.route.id === '/stats'}>Stats</a> -->
