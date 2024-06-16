@@ -1,10 +1,15 @@
 <script lang="ts">
     import { page } from '$app/stores'
     import { onNavigate } from '$app/navigation'
+    import { onMount } from 'svelte'
     import { goto } from '$app/navigation'
+
+    import LoadingSpinner from '$lib/components/LoadingSpinner.svelte'
 
     let { data } = $props()
     let category: Sheet.Category = $state(data.category)
+    let raid: Sheet.RaidTitle | undefined = $state()
+    let sheetStatus: 'pending' | 'resolved' = $state('pending')
 
     /**
      * Get selected category value and triggere sveltekit navigation
@@ -41,21 +46,38 @@
         }
     }
 
-    onNavigate(() => {
+    onNavigate(async () => {
         /**
          * [BUG] data.category and $page.data.category are bugged between +layout.ts, +page.ts and +page.svelte
-         * This is why we get searchParams from window.location instead
+         * [Solution] This is why we get searchParams from window.location instead
          */
         category = (new URL(window.location.toString()).searchParams.get('category') ?? 'f2p') as Sheet.Category
+
+        /**
+         * [BUG] Seems $page store is the one causing the bug, $page.params.raid returns the old slug
+         * Resulting in user needing to click on the sidebar link twice to have the data show
+         * [Solution] Use window.location.pathname for checks
+         */
+        raid = (await data.sheet).raidGroup.find((raid) => raid.toLowerCase().split(" ").join("-") === window.location.pathname.replace('/leaderboard/', ''))
+    })
+
+    onMount(async () => {
+        raid = (await data.sheet).raidGroup.find((raid) => raid.toLowerCase().split(" ").join("-") === $page.params.raid)
+
+        // Check promise status and delay status change times the number of entries being animated
+        data.sheet.then((sheet) => {
+            // @ts-ignore
+            setTimeout(() => { sheetStatus = 'resolved' }, sheet[category][raid]?.values.length * 410)
+        })
     })
 </script>
 
 <svelte:head>
-    <title>{ data.raid } | Outside the suitcase</title>
+    <title>{ raid } | Outside the suitcase</title>
 </svelte:head>
 
 <main class="flex-grow space-y-6">
-    <h3 class="crimson-text-bold text-tuscany-600 dark:text-white text-2xl px-10 md:px-0">{ data.raid }</h3>
+    <h3 class="crimson-text-bold text-tuscany-600 dark:text-white text-2xl px-10 md:px-0">{ raid ?? 'Raid Title' }</h3>
 
     <div class="flex items-center gap-2 px-10 md:px-0">
         <label for="category">Category</label>
@@ -66,14 +88,9 @@
         </select>
     </div>
 
-{#if data.raid}
-<!-- <pre>
-    <code>
-{JSON.stringify($page.data.f2p[data.raid], null, 4)}
-    </code>
-</pre> -->
+
     <div class="table-container overflow-x-auto">
-        <table class="w-full text-left border-collapse">
+        <table class="w-full text-left border-collapse border border-tuscany-600">
             <thead>
                 <tr>
                     {#each data.headers as header}
@@ -81,53 +98,63 @@
                     {/each}
                 </tr>
             </thead>
-            <tbody>
-                {#each data[category][data.raid]?.values ?? [] as entry}
-                    <tr class="odd:bg-tuscany-200 even:bg-tuscany-100">
-                        <td class="px-4 py-2 dark:text-slate-800"></td>
-                        <td class="px-4 py-2 dark:text-slate-800">{ entry.Username }</td>
-                        <td class="px-4 py-2 dark:text-slate-800">{ entry.Score }</td>
-                        <!-- flex items-center -->
-                        <td class="dark:text-slate-800">
-                            <div class="flex items-center min-w-48 px-4 py-2">
-                                {#each entry.characters as character}
-                                    {#if data.characterMap?.[character.Name]}
-                                        <div data-state="close" data-current="inactive" class="character group dropdown relative">
-                                            <button onclick={toggleCharacterInfo} aria-label="Toggle team info" type="button" class="outline-none">
-                                                <img src="{data.characterMap[character.Name]?.thumbnail ?? ""}" alt="{character.Name}" width="40" height="40" class="inline w-10 h-10" />
-                                            </button>
-
-                                            <!-- group-data-[state=close]:hidden -->
-                                            <div class="dropdown-content group-data-[state=close]:hidden absolute left-1/2 -translate-x-1/2 z-[9] text-white bg-tuscany-600 p-2 space-y-2">
-                                                <div class="crimson-text-bold tracking-wide">{ character.Name }</div>
-                                                <ul class="text-sm">
-                                                    <li class="flex items-center justify-between flex-nowrap whitespace-nowrap space-x-4">
-                                                        <div>Resonance level</div>
-                                                        <div>{character.Resonance}</div>
-                                                    </li>
-                                                    <li class="flex items-center justify-between flex-nowrap whitespace-nowrap space-x-4">
-                                                        <div>Portray</div>
-                                                        <div>{ character.Portray }</div>
-                                                    </li>
-                                                    <li class="flex items-center justify-between flex-nowrap whitespace-nowrap space-x-4">
-                                                        <div>Amplification</div>
-                                                        <div>{ character.Amplification }</div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    {/if}
-                                {/each}
+            <tbody class="{sheetStatus === 'pending' ? 'loading' : 'loaded'}">
+                {#await data.sheet}
+                    <tr>
+                        <td colspan="6" class="skeleton crimson-text-regular tracking-wider border border-tuscany-600">
+                            <div class="flex items-center justify-center gap-2 py-6">
+                                <LoadingSpinner />
+                                <span>Loading ranking data</span>
                             </div>
                         </td>
-                        <td class="px-4 py-2 dark:text-slate-800">{ entry["Entry Tag"] }</td>
-                        <td class="px-4 py-2 dark:text-slate-800">{ entry["Entry Date"] }</td>
                     </tr>
-                {/each}
+                {:then sheetData}
+                    {#if raid}
+                        {#each sheetData[category][raid]?.values ?? [] as entry, index}
+                            <tr class="raid-entry odd:bg-tuscany-200 even:bg-tuscany-100" style="--animation-order: {index + 1};">
+                                <td class="raid-entry-rank px-4 py-2 dark:text-slate-800"></td>
+                                <td class="raid-entry-username px-4 py-2 dark:text-slate-800">{ entry.Username }</td>
+                                <td class="raid-entry-score px-4 py-2 dark:text-slate-800">{ entry.Score }</td>
+                                <td class="raid-entry-characters dark:text-slate-800">
+                                    <div class="flex items-center min-w-48 px-4 py-2">
+                                        {#each entry.characters as character}
+                                            {#if data.characterMap?.[character.Name]}
+                                                <div data-state="close" data-current="inactive" class="character group dropdown relative">
+                                                    <button onclick={toggleCharacterInfo} aria-label="Toggle team info" type="button" class="outline-none">
+                                                        <img src="{data.characterMap[character.Name]?.thumbnail ?? ""}" alt="{character.Name}" loading="lazy" width="40" height="40" class="inline w-10 h-10" />
+                                                    </button>
+                                                    
+                                                    <div class="dropdown-content group-data-[state=close]:hidden absolute left-1/2 -translate-x-1/2 z-10 text-white bg-tuscany-600 p-2 space-y-2">
+                                                        <div class="crimson-text-bold tracking-wide">{ character.Name }</div>
+                                                        <ul class="text-sm">
+                                                            <li class="flex items-center justify-between flex-nowrap whitespace-nowrap space-x-4">
+                                                                <div>Resonance level</div>
+                                                                <div>{character.Resonance}</div>
+                                                            </li>
+                                                            <li class="flex items-center justify-between flex-nowrap whitespace-nowrap space-x-4">
+                                                                <div>Portray</div>
+                                                                <div>{ character.Portray }</div>
+                                                            </li>
+                                                            <li class="flex items-center justify-between flex-nowrap whitespace-nowrap space-x-4">
+                                                                <div>Amplification</div>
+                                                                <div>{ character.Amplification }</div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            {/if}
+                                        {/each}
+                                    </div>
+                                </td>
+                                <td class="px-4 py-2 dark:text-slate-800">{ entry["Entry Tag"] }</td>
+                                <td class="px-4 py-2 dark:text-slate-800">{ entry["Entry Date"] }</td>
+                            </tr>
+                        {/each}
+                    {/if}
+                {/await}
             </tbody>
         </table>
     </div>
-{/if}
 </main>
 
 <style>
@@ -139,7 +166,7 @@
         counter-reset: ranking;
     }
 
-    table > tbody tr > td:first-child::before {
+    table > tbody tr > td:first-child:not(.skeleton)::before {
         counter-increment: ranking;
         content: counter(ranking);
     }
@@ -150,5 +177,26 @@
 
     select {
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    }
+
+    table > tbody:is(.loading) .raid-entry {
+        opacity: 0;
+        /* transform: translateX(-1rem); */
+        animation-name: fade-in;
+        animation-duration: 400ms;
+        animation-timing-function: ease-in;
+        animation-delay: calc(200ms * var(--animation-order));
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+            /* transform: translateX(-1rem); */
+        }
+        100% {
+            opacity: 1;
+            /* transform: translateX(0); */
+        }
     }
 </style>
