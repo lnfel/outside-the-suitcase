@@ -44,6 +44,9 @@ declare global {
         type RaidGroup<T> = Record<RaidTitle, RaidData>
         type Data<T> = Record<Category, RaidGroup<T>>
     }
+    namespace Settings {
+        type ShelterFromTheStorm = 'outside-the-suitcase' | 'inside-the-suitcase'
+    }
     interface Window {
         webkitAudioContext: typeof AudioContext
     }

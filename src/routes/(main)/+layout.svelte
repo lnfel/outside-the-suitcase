@@ -9,6 +9,8 @@
     import Storm from '$lib/components/Storm.svelte'
     import StormBGM from '$lib/components/StormBGM.svelte'
 
+    let shelterFromTheStorm: Settings.ShelterFromTheStorm = $state(localStorage.getItem('ots:shelter-from-the-storm') ?? 'outside-the-suitcase') as Settings.ShelterFromTheStorm
+
     function toggleNav(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
         event.stopPropagation()
         const nav = event.currentTarget.closest('header')?.querySelector('nav')
@@ -34,6 +36,13 @@
                 ? 'close'
                 : 'open'
         }
+    }
+
+    function toggleStorm(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
+        shelterFromTheStorm = shelterFromTheStorm === 'outside-the-suitcase'
+            ? 'inside-the-suitcase'
+            : 'outside-the-suitcase'
+        localStorage.setItem('ots:shelter-from-the-storm', shelterFromTheStorm)
     }
 
     onMount(() => {
@@ -62,7 +71,9 @@
     })
 </script>
 
-<Storm />
+{#if shelterFromTheStorm === 'outside-the-suitcase'}
+    <Storm />
+{/if}
 
 <header class="sticky bottom-0 z-10 flex flex-col-reverse md:flex-row gap-6 items-stretch justify-between backdrop-blur-md {$page.url.pathname.includes(`${base}/leaderboard/`) ? 'bg-white/70 dark:bg-slate-900/70' : ''} px-10 md:px-20 py-6">
     <div class="flex items-center justify-between">
@@ -104,6 +115,9 @@
         <!-- https://codepen.io/adamruf/pen/GZwdrY -->
         <span class="outline-none line-through blur-[2px] select-none">Stats</span>
         <!-- <a href="{base}/stats" class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.route.id === '/stats'}>Stats</a> -->
+         <button onclick={toggleStorm} type="button" class="text-left outline-none hover:text-tuscany-600 focus:text-tuscany-600">
+            {shelterFromTheStorm === 'outside-the-suitcase' ? 'Take shelter from the rain' : 'Brave the storm'}
+         </button>
         <DarkmodeToggle />
         <StormBGM />
     </nav>
