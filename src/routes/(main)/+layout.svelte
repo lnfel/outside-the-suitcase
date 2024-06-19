@@ -10,6 +10,7 @@
     import StormBGM from '$lib/components/StormBGM.svelte'
 
     let shelterFromTheStorm: Settings.ShelterFromTheStorm = $state(localStorage.getItem('ots:shelter-from-the-storm') ?? 'outside-the-suitcase') as Settings.ShelterFromTheStorm
+    let shelterFromTheStormClass = $derived(shelterFromTheStorm === 'outside-the-suitcase' ? '' : 'hidden')
 
     function toggleNav(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
         event.stopPropagation()
@@ -71,9 +72,7 @@
     })
 </script>
 
-{#if shelterFromTheStorm === 'outside-the-suitcase'}
-    <Storm />
-{/if}
+<Storm class={shelterFromTheStormClass} />
 
 <header class="sticky bottom-0 z-10 flex flex-col-reverse md:flex-row gap-6 items-stretch justify-between backdrop-blur-md {$page.url.pathname.includes(`${base}/leaderboard/`) ? 'bg-white/70 dark:bg-slate-900/70' : ''} px-10 md:px-20 py-6">
     <div class="flex items-center justify-between">

@@ -15,6 +15,8 @@
     // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas
     // TODO
 
+    let { class: className = '' } = $props()
+
     let rainContainer: HTMLDivElement
     let ctx: CanvasRenderingContext2D,
         canvasWidth: number,
@@ -30,7 +32,7 @@
         weatherEnabled = $state(false),
         dialouge = $state(""),
         dialougeLoop: number,
-        sonnettoSpeaksFrameRequest = $state(0)
+        sonettoSpeaksFrameRequest = $state(0)
 
     function updateCanvasPosition(canvas: HTMLCanvasElement, container: HTMLDivElement) {
         const containerWidth = container.clientWidth
@@ -187,7 +189,7 @@
             tick()
         }
         function sonnettoSpeaks() {
-            sonnettoSpeaksFrameRequest = window.requestAnimationFrame(sonnettoSpeaks)
+            sonettoSpeaksFrameRequest = window.requestAnimationFrame(sonnettoSpeaks)
             if (weatherEnabled) {
                 if (within(lightningTimer, 8000, 6000)) {
                     typeWriter(phrases[0])
@@ -205,7 +207,7 @@
                     typeWriter(phrases[4])
                 }
             } else {
-                cancelAnimationFrame(sonnettoSpeaksFrameRequest)
+                cancelAnimationFrame(sonettoSpeaksFrameRequest)
                 setTimeout((target: HTMLButtonElement) => {
                     dialouge = ""
                     target.blur()
@@ -257,11 +259,11 @@
     })
 </script>
 
-<div bind:this={rainContainer} class="rain-container fixed inset-0 -z-10 pointer-events-none"></div>
+<div bind:this={rainContainer} class="rain-container fixed inset-0 -z-10 pointer-events-none {className}"></div>
 
-<div class="fixed top-6 z-10 right-10 md:right-20 flex items-center gap-2">
-    <span class="crimson-text-regular text-sm">{ dialouge }</span>
-    <button onclick={momentWithSonetto} type="button" class="opacity-20 outline-none hover:opacity-100 focus:opacity-100 transition-opacity">
+<div class="fixed top-6 z-10 right-10 md:right-20 flex items-center gap-2 {className}">
+    <span class="dialouge crimson-text-regular text-sm">{ dialouge }</span>
+    <button onclick={momentWithSonetto} disabled={weatherEnabled} type="button" class="outline-none hover:opacity-100 focus:opacity-100 transition-opacity" class:opacity-20={!weatherEnabled}>
         <img src="{base}/img/character/sonetto.webp" alt="Vertin" class="w-10 h-10 rounded-full overflow-hidden pointer-events-none">
     </button>
 </div>
