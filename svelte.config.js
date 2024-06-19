@@ -19,6 +19,9 @@ const config = {
         paths: {
             base: process.argv.includes('dev') ? '' : '/outside-the-suitcase'
         }
-	}
+	},
+    compilerOptions: {
+        runes: true
+    }
 };
 export default config;
