@@ -31,7 +31,7 @@ declare global {
         }
         type Entry = {
             "Entry Tag": string
-            "Entry Date": string
+            "Entry Date": Date
             "Username": string
             "Score": number
             "characters": Character[]
