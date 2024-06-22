@@ -30,6 +30,9 @@ export function parseSheetData(headers: Sheet.RaidTitle[], valueRanges?: sheets_
                     return charaObject
                 })
                 entryMeta.forEach((meta: string, metaIndex) => {
+                    if (meta === 'Score') {
+                        row[metaIndex] = Number(row[metaIndex].replace(/,/g, ''))
+                    }
                     entry[meta] = row[metaIndex]
                 })
                 entry.characters = characters
