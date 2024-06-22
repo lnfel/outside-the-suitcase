@@ -5,7 +5,7 @@
 
     import LoadingSpinner from '$lib/components/LoadingSpinner.svelte'
     
-    let { data } = $props()
+    let { data, children } = $props()
     let search = $state(window.location.search)
 
     const raidMap: Record<Sheet.RaidTitle, { thumbnail: string }> = {
@@ -61,7 +61,7 @@
             </div>
         </aside>
 
-        <slot />
+        {@render children()}
     </div>
 </div>
 

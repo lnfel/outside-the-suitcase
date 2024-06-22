@@ -9,6 +9,9 @@
     import Storm from '$lib/components/Storm.svelte'
     import StormBGM from '$lib/components/StormBGM.svelte'
 
+    // https://sveltekit.io/blog/snippets
+    let { children } = $props()
+
     let shelterFromTheStorm: Settings.ShelterFromTheStorm = $state(localStorage.getItem('ots:shelter-from-the-storm') ?? 'outside-the-suitcase') as Settings.ShelterFromTheStorm
     let shelterFromTheStormClass = $derived(shelterFromTheStorm === 'outside-the-suitcase' ? '' : 'hidden')
 
@@ -122,4 +125,5 @@
     </nav>
 </header>
 
-<slot />
+<!-- https://sveltekit.io/blog/snippets -->
+{@render children()}
