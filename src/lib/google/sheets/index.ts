@@ -33,6 +33,9 @@ export function parseSheetData(headers: Sheet.RaidTitle[], valueRanges?: sheets_
                     if (meta === 'Score') {
                         row[metaIndex] = Number(row[metaIndex].replace(/,/g, ''))
                     }
+                    if (meta === 'Entry Date') {
+                        row[metaIndex] = new Date(row[metaIndex])
+                    }
                     entry[meta] = row[metaIndex]
                 })
                 entry.characters = characters
