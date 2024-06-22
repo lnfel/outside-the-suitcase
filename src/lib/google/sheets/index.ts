@@ -15,7 +15,7 @@ export function parseSheetData(headers: Sheet.RaidTitle[], valueRanges?: sheets_
         "Amplification",
         "Name"
     ]
-    const entryMeta = cellHeaders.slice(0, 4) as string[]
+    const entryMeta = cellHeaders.slice(0, 4) as ("Entry Tag" | "Entry Date" | "Username" | "Score")[]
 
     return headers?.reduce((accumulator, header, index) => {
         if (valueRanges?.[index]) {
@@ -29,7 +29,7 @@ export function parseSheetData(headers: Sheet.RaidTitle[], valueRanges?: sheets_
                     charaObject[cellHeaders[7]] = characterData[3]
                     return charaObject
                 })
-                entryMeta.forEach((meta: string, metaIndex) => {
+                entryMeta.forEach((meta, metaIndex) => {
                     if (meta === 'Score') {
                         row[metaIndex] = Number(row[metaIndex].replace(/,/g, ''))
                     }
