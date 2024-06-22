@@ -11,6 +11,11 @@
     let category: Sheet.Category = $state(data.category)
     let raid: Sheet.RaidTitle | undefined = $state()
     let sheetStatus: 'pending' | 'resolved' = $state('pending')
+    let filter = $state({
+        column: 'score',
+        order: 'descending'
+    })
+    type Filter = typeof filter
 
     /**
      * Get selected category value and triggere sveltekit navigation
@@ -47,6 +52,38 @@
         }
     }
 
+    /**
+     * https://www.freecodecamp.org/news/how-to-sort-array-of-objects-by-property-name-in-javascript/
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator
+     */
+    function sheetDataWithFilter(filter: Filter, sheetEntries: Sheet.Entry[]) {
+        if (filter.column === 'username') {
+            filter.order === 'ascending'
+                ? sheetEntries.sort((a, b) => new Intl.Collator('en').compare(a.Username, b.Username))
+                : sheetEntries.sort((a, b) => new Intl.Collator('en').compare(b.Username, a.Username))
+        }
+        if (filter.column === 'score') {
+            filter.order === 'ascending'
+                ? sheetEntries.sort((a, b) => a.Score - b.Score)
+                : sheetEntries.sort((a, b) => b.Score - a.Score)
+        }
+        if (filter.column === 'entry date') {
+            filter.order === 'ascending'
+                ? sheetEntries.sort((a, b) => a['Entry Date'].valueOf() - b['Entry Date'].valueOf())
+                : sheetEntries.sort((a, b) => b['Entry Date'].valueOf() - a['Entry Date'].valueOf())
+        }
+        return sheetEntries
+    }
+
+    async function filterToggle(name: string) {
+        // if changing column sort, keep the previous order
+        if (filter.column === name) {
+            filter.order = filter.order === 'ascending' ? 'descending' : 'ascending'
+        }
+        filter.column = name
+    }
+
     onNavigate(async () => {
         /**
          * [BUG] data.category and $page.data.category are bugged between +layout.ts, +page.ts and +page.svelte
@@ -67,8 +104,9 @@
 
         // Check promise status and delay status change times the number of entries being animated
         data.sheet.then((sheet) => {
-            // @ts-ignore
-            setTimeout(() => { sheetStatus = 'resolved' }, sheet[category][raid]?.values.length * 410)
+            if (raid) {
+                setTimeout(() => { sheetStatus = 'resolved' }, sheet[category][raid]?.values?.length ?? 0 * 410)
+            }
         })
     })
 </script>
@@ -94,8 +132,36 @@
         <table class="w-full text-left border-collapse border border-tuscany-600">
             <thead>
                 <tr>
-                    {#each data.headers as header}
+                    <!-- {#each data.headers as header}
                         <th scope="col" class="px-4 py-2 text-lg whitespace-nowrap text-white bg-tuscany-600">{ header }</th>
+                    {/each} -->
+                    {#snippet headerElement({ name, sortable = false })}
+                        {#if sortable}
+                            <th scope="col" class="text-lg whitespace-nowrap text-white bg-tuscany-600">
+                                <button onclick={() => filterToggle(name.toLowerCase())} type="button" class="flex items-center gap-1 outline-none hover:bg-tuscany-500 focus:bg-tuscany-500 px-4 py-2" class:bg-tuscany-500={filter.column === name.toLowerCase()}>
+                                    <span>{ name }</span>
+                                    {#if filter.column === name.toLowerCase()}
+                                        {#if filter.order === 'ascending'}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up w-4 h-4"><path d="m18 15-6-6-6 6"/></svg>
+                                        {:else}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-4 h-4"><path d="m6 9 6 6 6-6"/></svg>
+                                        {/if}
+                                    {:else}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up-down w-4 h-4"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                                    {/if}
+                                </button>
+                            </th>
+                        {:else}
+                            <th scope="col" class="px-4 py-2 text-lg whitespace-nowrap text-white bg-tuscany-600">{ name }</th>
+                        {/if}
+                    {/snippet}
+
+                    {#each data.headers as header}
+                        {#if ['Username', 'Score', 'Entry Date'].includes(header)}
+                            {@render headerElement({ name: header, sortable: true })}
+                        {:else}
+                            {@render headerElement({ name: header })}
+                        {/if}
                     {/each}
                 </tr>
             </thead>
@@ -111,11 +177,12 @@
                     </tr>
                 {:then sheetData}
                     {#if raid}
-                        {#each sheetData[category][raid]?.values ?? [] as entry, index}
+                        {#each sheetDataWithFilter(filter, sheetData[category][raid]?.values ?? []) as entry, index}
+                        <!-- {#each sheetData[category][raid]?.values ?? [] as entry, index} -->
                             <tr class="raid-entry odd:bg-tuscany-200 even:bg-tuscany-100" style="--animation-order: {index + 1};">
                                 <td class="raid-entry-rank px-4 py-2 dark:text-slate-800"></td>
                                 <td class="raid-entry-username px-4 py-2 dark:text-slate-800">{ entry.Username }</td>
-                                <td class="raid-entry-score px-4 py-2 dark:text-slate-800">{ entry.Score }</td>
+                                <td class="raid-entry-score px-4 py-2 dark:text-slate-800">{ entry.Score.toLocaleString() }</td>
                                 <td class="raid-entry-characters dark:text-slate-800">
                                     <div class="flex items-center min-w-48 px-4 py-2">
                                         {#each entry.characters as character}
@@ -148,7 +215,7 @@
                                     </div>
                                 </td>
                                 <td class="px-4 py-2 dark:text-slate-800">{ entry["Entry Tag"] }</td>
-                                <td class="px-4 py-2 dark:text-slate-800">{ entry["Entry Date"] }</td>
+                                <td class="px-4 py-2 dark:text-slate-800">{ entry["Entry Date"].toLocaleDateString('en-CA') }</td>
                             </tr>
                         {/each}
                     {/if}
