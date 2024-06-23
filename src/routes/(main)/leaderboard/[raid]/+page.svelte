@@ -16,6 +16,7 @@
         order: 'descending'
     })
     type Filter = typeof filter
+    $inspect(sheetStatus)
 
     /**
      * Get selected category value and triggere sveltekit navigation
@@ -105,7 +106,7 @@
         // Check promise status and delay status change times the number of entries being animated
         data.sheet.then((sheet) => {
             if (raid) {
-                setTimeout(() => { sheetStatus = 'resolved' }, sheet[category][raid]?.values?.length ?? 0 * 410)
+                setTimeout(() => { sheetStatus = 'resolved' }, Number(sheet[category][raid]?.values?.length ?? 0) * 410)
             }
         })
     })
