@@ -1,0 +1,1 @@
+{"version":3,"file":"9.B2IQOcwn.js","sources":["../../../../../../src/routes/(main)/leaderboard/+page.ts"],"sourcesContent":["\nexport const load = async ({ fetch }) => {\n    \n}\n"],"names":["load","fetch"],"mappings":"iKACO,MAAMA,EAAO,MAAO,CAAE,MAAAC,KAAY,CAEzC"}
