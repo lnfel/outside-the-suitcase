@@ -1,7 +1,8 @@
 <script lang="ts">
-    export let data: Sheet.Data<Sheet.RaidTitle>
+    let { data } = $props()
+    // export let data: Sheet.Data<Sheet.RaidTitle>
 
-    let category: Sheet.Category = 'f2p'
+    let category: Sheet.Category = $state('f2p')
     const headers = [
         "Entry Tag",
         "Entry Date",
