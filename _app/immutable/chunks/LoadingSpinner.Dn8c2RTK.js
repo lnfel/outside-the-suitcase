@@ -1,2 +1,0 @@
-import"./disclose-version.Bg9kRutz.js";import{t as o}from"./runtime.C2Zc6Vci.js";import{a as p,t as r}from"./template.DJK7smhD.js";import{s as i}from"./class.C6jkPbH_.js";import{p as m}from"./props.DcQzd0wf.js";var n=r("<div></div>");function g(t,s){let e=m(s,"class",3,"");var a=n();o(()=>i(a,`spinner animate-loading-spin ${e()??""} svelte-s744ju`)),p(t,a)}export{g as L};
-//# sourceMappingURL=LoadingSpinner.Dn8c2RTK.js.map
