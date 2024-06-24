@@ -13,6 +13,16 @@
         <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="%sveltekit.assets%/css/main.css">
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1K5803W882"></script>
+        <script nonce="%sveltekit.nonce%">
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-1K5803W882');
+        </script>
 	</head>
     <!-- Do not transition colors to prevent FART: https://css-tricks.com/flash-of-inaccurate-color-theme-fart/ -->
 	<body data-sveltekit-preload-data="hover" class="mukta-regular text-slate-800 dark:text-white bg-indigo-100 dark:bg-slate-900">
