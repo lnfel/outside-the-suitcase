@@ -215,7 +215,7 @@
                                     </div>
                                 </td>
                                 <td class="px-4 py-2 dark:text-slate-800">{ entry["Entry Tag"] }</td>
-                                <td class="px-4 py-2 dark:text-slate-800">{ entry["Entry Date"].toLocaleDateString('en-CA') }</td>
+                                <td class="px-4 py-2 dark:text-slate-800 whitespace-nowrap">{ entry["Entry Date"].toLocaleDateString('en-CA') }</td>
                             </tr>
                         {/each}
                     {/if}
