@@ -2,6 +2,7 @@
     let { class: className = "" } = $props()
 </script>
 
+<!-- See tailwind.config.js -->
 <div class="spinner animate-loading-spin {className}"></div>
 
 <style>

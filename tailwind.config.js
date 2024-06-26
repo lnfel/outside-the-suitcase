@@ -26,7 +26,7 @@ const config = {
                 },
             },
             animation: {
-                'loading-spin': 'loading-spin 3s infinite'
+                'loading-spin': 'loading-spin 5s infinite'
             },
             keyframes: {
                 'loading-spin': {
