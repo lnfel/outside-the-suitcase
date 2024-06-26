@@ -1,0 +1,2 @@
+import"../chunks/disclose-version.Bg9kRutz.js";import{c as f,p as g,t as h,a as l,b as v,d as b,s as o,e as p,f as d,g as n}from"../chunks/custom-element.Bd7BP0Qt.js";import{u as x,s as $,p as y}from"../chunks/stores.gvC-oz9W.js";var E=b("<h1> </h1> <p> </p>",1);function j(c,i){g(i,!0);const t={};x(t);const s=()=>$(y,"$page",t);var e=E(),a=d(e),m=p(a),u=n(n(a,!0)),_=p(u);h(()=>{var r;o(m,s().status),o(_,(r=s().error)==null?void 0:r.message)}),l(c,e),v()}f(j,{},[],[],!0);export{j as component};
+//# sourceMappingURL=1.Be-UylIf.js.map
