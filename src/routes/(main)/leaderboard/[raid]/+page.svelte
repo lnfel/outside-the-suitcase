@@ -16,7 +16,6 @@
         order: 'descending'
     })
     type Filter = typeof filter
-    $inspect(sheetStatus)
 
     /**
      * Get selected category value and triggere sveltekit navigation
@@ -227,9 +226,9 @@
 </main>
 
 <style>
-    .table-container:has([data-state=open]) {
+    /* .table-container:has([data-state=open]) {
         overflow: visible!important;
-    }
+    } */
 
     table {
         counter-reset: ranking;
@@ -241,7 +240,11 @@
     }
 
     table > tbody tr:last-of-type .dropdown-content {
-        bottom: 100%
+        bottom: 100%;
+    }
+
+    table > tbody tr:nth-last-child(2) .dropdown-content {
+        bottom: 100%;
     }
 
     select {
