@@ -1,2 +1,0 @@
-import{ag as f,B as g}from"./custom-element.Bd7BP0Qt.js";function c(r,s,i){i=i==null?null:i+"";var o=r.__attributes??(r.__attributes={});g&&(o[s]=r.getAttribute(s),s==="src"||s==="href"||s==="srcset")||o[s]!==(o[s]=i)&&(s==="loading"&&(r[f]=i),i===null?r.removeAttribute(s):r.setAttribute(s,i))}function A(r){if(!g&&r.loading==="lazy"){var s=r.src;r[f]=null,r.loading="eager",r.removeAttribute("src"),requestAnimationFrame(()=>{r[f]!=="eager"&&(r.loading="lazy"),r.src=s})}}export{A as h,c as s};
-//# sourceMappingURL=attributes.Ch3uYejW.js.map

@@ -6,17 +6,23 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Reverse 1999 Mane's Bulletin Global Leaderboard for non-Chinese servers.">
 		
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/entry/start.BxKvlAqg.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/entry.CctKa2Vz.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/index-client.CZUoncps.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/custom-element.Bd7BP0Qt.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/paths.BtfFdbie.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/entry/app.BFzoxxHv.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/entry/start.Ds99V1sJ.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/entry.CpbL_mee.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/index-client.VlGoYQNb.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/runtime.C2Zc6Vci.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/paths.CIHyTKLe.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/control.CYgJF_JY.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/entry/app.DLmxWdiy.js">
 		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/preload-helper.CRk0x-X1.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/index.BgedIR36.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/proxy.BjlMx0ws.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/render.BSFr2KKI.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/template.DJK7smhD.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/svelte-head.D4WIdBQT.js">
 		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/disclose-version.Bg9kRutz.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/if.BtDi6yPi.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/this.CecjLYcE.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/props.Cda_5gBt.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/if.MdFLc77f.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/this.BsltOBbE.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/props.DcQzd0wf.js">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,12 +36,24 @@
         <script>
             const theme = localStorage.getItem('ots:theme')
             if (theme === 'dark') document.documentElement.classList.add('dark');
+            /**
+             * Trick to add transition to body without FARTing is to delay adding the class
+             */
+            document.addEventListener('DOMContentLoaded', () => {
+                const body = document.querySelector('body')
+                if (body) {
+                    setTimeout(() => {
+                        const transitionClass = 'transition duration-200'
+                        body.classList.add(...transitionClass.split(" "))
+                    }, 1000)
+                }
+            })
         </script>
 
 		<div class="min-h-screen relative flex flex-col-reverse">
 			<script>
 				{
-					__sveltekit_1n5p0xd = {
+					__sveltekit_ilo4gj = {
 						base: "/outside-the-suitcase",
 						assets: "/outside-the-suitcase"
 					};
@@ -43,8 +61,8 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/outside-the-suitcase/_app/immutable/entry/start.BxKvlAqg.js"),
-						import("/outside-the-suitcase/_app/immutable/entry/app.BFzoxxHv.js")
+						import("/outside-the-suitcase/_app/immutable/entry/start.Ds99V1sJ.js"),
+						import("/outside-the-suitcase/_app/immutable/entry/app.DLmxWdiy.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});

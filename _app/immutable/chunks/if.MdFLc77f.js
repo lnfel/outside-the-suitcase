@@ -1,0 +1,2 @@
+import{b as d,I as v,J as b,l as t,c as r,m as n,E as h}from"./runtime.C2Zc6Vci.js";import{h as p,j as u,i as N}from"./template.DJK7smhD.js";function y(f,o,c,l=null,_=!1){var e=null,s=null,a=null,m=_?h:0;d(()=>{if(a===(a=!!o()))return;let i=!1;if(p){const E=f.data===v;a===E&&(b(N),u(!1),i=!0)}a?(e?t(e):e=r(()=>c(f)),s&&n(s,()=>{s=null})):(s?t(s):l&&(s=r(()=>l(f))),e&&n(e,()=>{e=null})),i&&u(!0)},m)}export{y as i};
+//# sourceMappingURL=if.MdFLc77f.js.map
