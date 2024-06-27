@@ -1,10 +1,8 @@
 <script lang="ts">
     import { onMount } from 'svelte'
-    import { createEventDispatcher } from 'svelte'
 
-    let { class: className } = $props<{ class?: string }>()
+    let { class: className = '' } = $props()
 
-    const dispatch = createEventDispatcher()
     const delayClass = 'delay-500'
 
     let theme = $state('dark')
@@ -19,9 +17,9 @@
 
     function toggle(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement; }) {
         event.stopPropagation()
+        enabled = !enabled
 
         setTimeout(() => {
-            enabled = !enabled
             theme = enabled ? 'dark' : 'light'
             enabled ? event.currentTarget.dataset.state = 'enabled' : delete event.currentTarget.dataset.state
             localStorage.setItem('ots:theme', theme)
@@ -30,8 +28,6 @@
                 ? document.documentElement.classList.add('dark')
                 : document.documentElement.classList.remove('dark')
         }, Number(delayClass.replace('delay-', '')))
-
-        dispatch('toggle', theme)
     }
 </script>
 
