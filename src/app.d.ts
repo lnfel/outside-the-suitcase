@@ -20,7 +20,8 @@ declare global {
 	}
     namespace Sheet {
         type CellHeaders = "Entry Tag" | "Entry Date" | "Username" | "Score" | "Portray" | "Resonance" | "Amplification" | "Character"
-        type RaidTitle = "Darkness of the Abyss" | "Marsh Creation" | "Gold in the Cave" | "Hypothesis of Exhibition" | "Projection of Nightmare"
+        // https://stackoverflow.com/questions/62028427/how-to-use-ts-type-as-a-value
+        type RaidTitle = typeof import('$lib/data').raidGroup[number]
         type Category = "ffa" | "f2p"
         type Headers = string[]
         type Character = {

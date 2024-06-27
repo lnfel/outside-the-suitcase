@@ -7,6 +7,8 @@ export const headers = [
     "Entry Date",
 ]
 
+export const raidGroup = ["Darkness of the Abyss", "Marsh Creation", "Gold in the Cave", "Hypothesis of Exhibition", "Projection of Nightmare"] as const;
+
 export const characterMap = {
     "37": {
         thumbnail: "https://www.prydwen.gg/static/a9df0a9f798cde750e47fe7b40c4cb61/60b4d/64_icon.webp"
