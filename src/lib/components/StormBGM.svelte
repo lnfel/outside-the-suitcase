@@ -91,7 +91,7 @@
     }
 </script>
 
-<button onclick={toggleAudio} type="button" class="outline-none flex items-center gap-2 md:static hover:text-tuscany-600 focus:text-tuscany-600">
+<button onclick={toggleAudio} type="button" class="outline-none flex items-center gap-2 md:static hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-400 dark:focus:text-tuscany-400">
     <svg class="round w-6 h-6" id="waveform">
         <defs>
             <radialGradient id="rgrad" cx="50%" cy="50%" r="50%">         
