@@ -19,6 +19,18 @@
         <script>
             const theme = localStorage.getItem('ots:theme')
             if (theme === 'dark') document.documentElement.classList.add('dark');
+            /**
+             * Trick to add transition to body without FARTing is to delay adding the class
+             */
+            document.addEventListener('DOMContentLoaded', () => {
+                const body = document.querySelector('body')
+                if (body) {
+                    setTimeout(() => {
+                        const transitionClass = 'transition duration-200'
+                        body.classList.add(...transitionClass.split(" "))
+                    }, 1000)
+                }
+            })
         </script>
 
 		<div class="min-h-screen relative flex flex-col-reverse">%sveltekit.body%</div>
