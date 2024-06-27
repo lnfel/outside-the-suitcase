@@ -1,7 +1,10 @@
 <script lang="ts">
+    import '$lib/app.css'
+
     import { page } from '$app/stores'
     import { base } from '$app/paths'
     import { onNavigate } from '$app/navigation'
+    import { raidGroup } from '$lib/data'
 
     import LoadingSpinner from '$lib/components/LoadingSpinner.svelte'
     
@@ -40,7 +43,7 @@
     <h2 class="crimson-text-bold text-tuscany-600 dark:text-white text-3xl px-10 md:px-0">Mane's Bulletin Leaderboard</h2>
 
     <div class="flex flex-col md:flex-row gap-4">
-        <aside class="flex-shrink-0 sticky top-6 backdrop-blur-sm md:backdrop-blur-none px-10 md:px-0">
+        <aside class="flex-shrink-0 sticky top-6 z-10 md:z-[9] backdrop-blur-sm md:backdrop-blur-none px-10 md:px-0" class:hidden={!raidGroup.map((raid) => raid.toLowerCase().split(" ").join("-")).includes($page.url.pathname.replace('/leaderboard/', ''))}>
             <!-- [&:has(.spinner)]:h-full [&:has(.spinner)]:justify-center -->
             <div class="raid-nav sticky min-w-[180px] top-[9rem] flex md:flex-col gap-2 md:top-20">
                 <!-- https://10015.io/tools/css-loader-generator -->
