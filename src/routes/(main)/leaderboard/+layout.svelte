@@ -43,7 +43,8 @@
     <h2 class="crimson-text-bold text-tuscany-600 dark:text-white text-3xl px-10 md:px-0">Mane's Bulletin Leaderboard</h2>
 
     <div class="flex flex-col md:flex-row gap-4">
-        <aside class="flex-shrink-0 sticky top-6 z-10 md:z-[9] backdrop-blur-sm md:backdrop-blur-none px-10 md:px-0" class:hidden={!raidGroup.map((raid) => raid.toLowerCase().split(" ").join("-")).includes($page.url.pathname.replace('/leaderboard/', ''))}>
+        <!-- class:hidden={!raidGroup.map((raid) => raid.toLowerCase().split(" ").join("-")).includes($page.url.pathname.replace('/leaderboard/', ''))} -->
+        <aside class="flex-shrink-0 sticky top-6 z-10 md:z-[9] backdrop-blur-sm md:backdrop-blur-none px-10 md:px-0">
             <!-- [&:has(.spinner)]:h-full [&:has(.spinner)]:justify-center -->
             <div class="raid-nav sticky min-w-[180px] top-[9rem] flex md:flex-col gap-2 md:top-20">
                 <!-- https://10015.io/tools/css-loader-generator -->
@@ -51,7 +52,7 @@
                     <LoadingSpinner class="self-center" />
                 {:then sheet}
                     {#each sheet.raidGroup as raid, index}
-                        <a href="{base}/leaderboard/{raid.toLowerCase().split(" ").join("-")}{search}" style="--animation-order: {index + 1};" class="raid-link {$page.params.raid === raid.toLowerCase().split(" ").join("-") ? 'bg-tuscany-600 text-white' : ''} whitespace-nowrap outline-none hover:text-white focus:text-white hover:bg-tuscany-600 focus:bg-tuscany-600 p-0.5 md:px-2 md:py-1">
+                        <a href="{base}/leaderboard/{$page.route.id?.replace('/(main)/leaderboard/', '').replace('/[raid=raid]', '')}/{raid.toLowerCase().split(" ").join("-")}{search}" style="--animation-order: {index + 1};" class="raid-link {$page.params.raid === raid.toLowerCase().split(" ").join("-") ? 'bg-tuscany-600 text-white' : ''} whitespace-nowrap outline-none hover:text-white focus:text-white hover:bg-tuscany-600 focus:bg-tuscany-600 p-0.5 md:px-2 md:py-1">
                             {#if raidMap[raid].thumbnail}
                                 <img src="{raidMap[raid].thumbnail}" alt="{raid}" loading="lazy" class="w-10 h-10 aspect-square md:hidden">
                             {/if}

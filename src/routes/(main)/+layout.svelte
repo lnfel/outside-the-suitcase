@@ -73,7 +73,6 @@
             }
         })
     })
-    console.log($page)
 </script>
 
 <Storm class={shelterFromTheStormClass} />
@@ -100,7 +99,7 @@
         <!-- Leaderboard dropdown -->
         <div data-state="close" class="dropdown group md:relative">
             <div class="flex items-center justify-between md:justify-start gap-1">
-                <a href="{base}/leaderboard/darkness-of-the-abyss" onclick={closeNav} class="{$page.url.pathname.includes(`${base}/leaderboard`) ? 'text-tuscany-600 dark:text-tuscany-300' : ''} outline-none hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-400 dark:focus:text-tuscany-400">
+                <a href="{base}/leaderboard/raid/darkness-of-the-abyss" onclick={closeNav} class="{$page.url.pathname.includes(`${base}/leaderboard`) ? 'text-tuscany-600 dark:text-tuscany-300' : ''} outline-none hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-400 dark:focus:text-tuscany-400">
                     Leaderboard
                 </a>
                 <button onclick={toggleDropdown} type="button" class="outline-none hover:text-tuscany-600 focus:text-tuscany-600 dark:hover:text-tuscany-300 dark:focus:text-tuscany-300">
@@ -111,10 +110,10 @@
 
             <div class="dropdown-content w-full group-data-[state=close]:hidden flex flex-col gap-1 md:absolute bottom-full md:backdrop-blur-md {$page.url.pathname.includes(`${base}/leaderboard/`) ? 'md:bg-white/70 md:dark:bg-slate-900/70' : ''} md:mb-10">
                 <!-- new URL(window.location.toString()).searchParams.get('category') -->
-                <a href="{base}/leaderboard/{$page.data.raid?.toLowerCase().split(" ").join("-") ?? 'darkness-of-the-abyss'}?category=f2p" onclick={closeNav} class="border-l-8 border-transparent outline-none hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-400 dark:focus:text-tuscany-400 {$page.url.searchParams.get('category') === 'f2p' ? 'border-tuscany-600 dark:border-tuscany-300' : ''} px-4">
+                <a href="{base}/leaderboard/raid/{$page.data.raid?.toLowerCase().split(" ").join("-") ?? 'darkness-of-the-abyss'}?category=f2p" onclick={closeNav} class="border-l-8 border-transparent outline-none hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-400 dark:focus:text-tuscany-400 {$page.url.searchParams.get('category') === 'f2p' ? 'border-tuscany-600 dark:border-tuscany-300' : ''} px-4">
                     F2P
                 </a>
-                <a href="{base}/leaderboard/{$page.data.raid?.toLowerCase().split(" ").join("-") ?? 'darkness-of-the-abyss'}?category=ffa" onclick={closeNav} class="border-l-8 border-transparent outline-none hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-400 dark:focus:text-tuscany-400 {$page.url.searchParams.get('category') === 'ffa' ? 'border-tuscany-600 dark:border-tuscany-300' : ''} px-4">
+                <a href="{base}/leaderboard/raid/{$page.data.raid?.toLowerCase().split(" ").join("-") ?? 'darkness-of-the-abyss'}?category=ffa" onclick={closeNav} class="border-l-8 border-transparent outline-none hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-400 dark:focus:text-tuscany-400 {$page.url.searchParams.get('category') === 'ffa' ? 'border-tuscany-600 dark:border-tuscany-300' : ''} px-4">
                     FFA
                 </a>
             </div>
@@ -122,7 +121,7 @@
         <!-- <a href="{base}/stream" onclick={closeNav} class="outline-none hover:text-tuscany-600 focus:text-tuscany-600" class:text-tuscany-600={$page.url.pathname === `${base}/stream`}>Stream</a> -->
         <!-- https://codepen.io/adamruf/pen/GZwdrY -->
         <!-- <span class="outline-none line-through blur-[2px] select-none">Stats</span> -->
-        <a href="{base}/leaderboard/stats" class="{$page.url.pathname === `${base}/leaderboard/stats` ? 'text-tuscany-600 dark:text-tuscany-300' : ''} outline-none hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-400 dark:focus:text-tuscany-400">
+        <a href="{base}/leaderboard/stats/{$page.data.raid?.toLowerCase().split(" ").join("-") ?? 'darkness-of-the-abyss'}" class="{$page.url.pathname === `${base}/leaderboard/stats` ? 'text-tuscany-600 dark:text-tuscany-300' : ''} outline-none hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-400 dark:focus:text-tuscany-400">
             Stats
         </a>
         <button onclick={toggleStorm} type="button" class="text-left outline-none hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-300 dark:focus:text-tuscany-300">

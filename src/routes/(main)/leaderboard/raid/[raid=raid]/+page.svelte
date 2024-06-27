@@ -96,7 +96,7 @@
          * Resulting in user needing to click on the sidebar link twice to have the data show
          * [Solution] Use window.location.pathname for checks
          */
-        raid = (await data.sheet).raidGroup.find((raid) => raid.toLowerCase().split(" ").join("-") === window.location.pathname.replace(`${base}/leaderboard/`, '').replace('/', ''))
+        raid = (await data.sheet).raidGroup.find((raid) => raid.toLowerCase().split(" ").join("-") === window.location.pathname.replace(`${base}/leaderboard/`, '').replace(`${$page.route.id?.replace('/(main)/leaderboard/', '').replace('/[raid=raid]', '')}/`, ''))
     })
 
     onMount(async () => {
