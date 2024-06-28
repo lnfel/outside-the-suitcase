@@ -11,11 +11,10 @@
     let category: Sheet.Category = $state(data.category)
     let raid: Sheet.RaidTitle | undefined = $state()
     let sheetStatus: 'pending' | 'resolved' = $state('pending')
-    let filter = $state({
+    let filter: Sheet.Filter = $state({
         column: 'score',
         order: 'descending'
     })
-    type Filter = typeof filter
 
     /**
      * Get selected category value and triggere sveltekit navigation
@@ -57,26 +56,28 @@
      * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
      * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator
      */
-    function sheetDataWithFilter(filter: Filter, sheetEntries: Sheet.Entry[]) {
-        if (filter.column === 'username') {
-            filter.order === 'ascending'
-                ? sheetEntries.sort((a, b) => new Intl.Collator('en').compare(a.Username, b.Username))
-                : sheetEntries.sort((a, b) => new Intl.Collator('en').compare(b.Username, a.Username))
+    function sheetDataWithFilter(filter: Sheet.Filter, sheetEntries: Sheet.Entry[]) {
+        const sort = {
+            username: (order: string, entries: Sheet.Entry[]) => {
+                return order === 'ascending'
+                    ? entries.sort((a, b) => new Intl.Collator('en').compare(a.Username, b.Username))
+                    : entries.sort((a, b) => new Intl.Collator('en').compare(b.Username, a.Username))
+            },
+            score: (order: string, entries: Sheet.Entry[]) => {
+                return order === 'ascending'
+                    ? entries.sort((a, b) => a.Score - b.Score)
+                    : entries.sort((a, b) => b.Score - a.Score)
+            },
+            "entry date": (order: string, entries: Sheet.Entry[]) => {
+                return order === 'ascending'
+                    ? entries.sort((a, b) => a['Entry Date'].valueOf() - b['Entry Date'].valueOf())
+                    : entries.sort((a, b) => b['Entry Date'].valueOf() - a['Entry Date'].valueOf())
+            }
         }
-        if (filter.column === 'score') {
-            filter.order === 'ascending'
-                ? sheetEntries.sort((a, b) => a.Score - b.Score)
-                : sheetEntries.sort((a, b) => b.Score - a.Score)
-        }
-        if (filter.column === 'entry date') {
-            filter.order === 'ascending'
-                ? sheetEntries.sort((a, b) => a['Entry Date'].valueOf() - b['Entry Date'].valueOf())
-                : sheetEntries.sort((a, b) => b['Entry Date'].valueOf() - a['Entry Date'].valueOf())
-        }
-        return sheetEntries
+        return sort[filter.column](filter.order, sheetEntries)
     }
 
-    async function filterToggle(name: string) {
+    async function filterToggle(name: Sheet.Filter.Column) {
         // if changing column sort, keep the previous order
         if (filter.column === name) {
             filter.order = filter.order === 'ascending' ? 'descending' : 'ascending'
