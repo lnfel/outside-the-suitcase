@@ -117,7 +117,7 @@
 </svelte:head>
 
 <main class="flex-grow space-y-6">
-    <h3 class="crimson-text-bold text-tuscany-600 dark:text-white text-2xl px-10 md:px-0">{ raid ?? 'Raid Title' }</h3>
+    <h3 class="crimson-text-bold text-tuscany-600 dark:text-tuscany-300 text-2xl px-10 md:px-0">{ raid ?? 'Raid Title' }</h3>
 
     <div class="flex items-center gap-2 px-10 md:px-0">
         <label for="category">Category</label>
@@ -136,9 +136,9 @@
                     <!-- {#each data.headers as header}
                         <th scope="col" class="px-4 py-2 text-lg whitespace-nowrap text-white bg-tuscany-600">{ header }</th>
                     {/each} -->
-                    {#snippet headerElement({ name, sortable = false })}
+                    {#snippet headerElement({ name, sortable = false, className = '' })}
                         {#if sortable}
-                            <th scope="col" class="text-lg whitespace-nowrap text-white bg-tuscany-600">
+                            <th scope="col" class="text-lg whitespace-nowrap text-white bg-tuscany-600 {className}">
                                 <button onclick={() => filterToggle(name.toLowerCase())} type="button" class="flex items-center gap-1 outline-none hover:bg-tuscany-500 focus:bg-tuscany-500 px-4 py-2" class:bg-tuscany-500={filter.column === name.toLowerCase()}>
                                     <span>{ name }</span>
                                     {#if filter.column === name.toLowerCase()}
@@ -153,13 +153,15 @@
                                 </button>
                             </th>
                         {:else}
-                            <th scope="col" class="px-4 py-2 text-lg whitespace-nowrap text-white bg-tuscany-600">{ name }</th>
+                            <th scope="col" class="px-4 py-2 text-lg whitespace-nowrap text-white bg-tuscany-600 {className}">{ name }</th>
                         {/if}
                     {/snippet}
 
                     {#each data.headers as header}
                         {#if ['Username', 'Score', 'Entry Date'].includes(header)}
                             {@render headerElement({ name: header, sortable: true })}
+                        {:else if header === 'Team'}
+                            {@render headerElement({ name: header, className: 'min-w-48' })}
                         {:else}
                             {@render headerElement({ name: header })}
                         {/if}
