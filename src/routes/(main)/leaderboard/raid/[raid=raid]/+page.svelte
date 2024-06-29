@@ -1,9 +1,8 @@
 <script lang="ts">
     import { page } from '$app/stores'
     import { base } from '$app/paths'
-    import { onNavigate } from '$app/navigation'
+    import { onNavigate, goto } from '$app/navigation'
     import { onMount } from 'svelte'
-    import { goto } from '$app/navigation'
 
     import LoadingSpinner from '$lib/components/LoadingSpinner.svelte'
 
