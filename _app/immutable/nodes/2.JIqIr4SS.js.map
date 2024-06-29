@@ -1,1 +1,0 @@
-{"version":3,"file":"2.JIqIr4SS.js","sources":["../../../../../../src/routes/(development)/+layout.ts"],"sourcesContent":["export const ssr = false\n"],"names":["ssr"],"mappings":"6PAAO,MAAMA,EAAM"}
