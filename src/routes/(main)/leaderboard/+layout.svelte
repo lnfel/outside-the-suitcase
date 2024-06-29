@@ -52,7 +52,7 @@
                     <LoadingSpinner class="self-center" />
                 {:then sheet}
                     {#each sheet.raidGroup as raid, index}
-                        <a href="{base}/leaderboard/{$page.route.id?.replace('/(main)/leaderboard/', '').replace('/[raid=raid]', '')}/{raid.toLowerCase().split(" ").join("-")}{search}" style="--animation-order: {index + 1};" class="raid-link {$page.params.raid === raid.toLowerCase().split(" ").join("-") ? 'bg-tuscany-600 text-white' : ''} whitespace-nowrap outline-none hover:text-white focus:text-white hover:bg-tuscany-500 focus:bg-tuscany-500 dark:hover:bg-tuscany-400 dark:focus:bg-tuscany-400 p-0.5 md:px-2 md:py-1">
+                        <a data-sveltekit-noscroll href="{base}/leaderboard/{$page.route.id?.replace('/(main)/leaderboard/', '').replace('/[raid=raid]', '')}/{raid.toLowerCase().split(" ").join("-")}{search}" style="--animation-order: {index + 1};" class="raid-link {$page.params.raid === raid.toLowerCase().split(" ").join("-") ? 'bg-tuscany-600 text-white' : ''} whitespace-nowrap outline-none hover:text-white focus:text-white hover:bg-tuscany-500 focus:bg-tuscany-500 dark:hover:bg-tuscany-400 dark:focus:bg-tuscany-400 p-0.5 md:px-2 md:py-1">
                             {#if raidMap[raid].thumbnail}
                                 <img src="{raidMap[raid].thumbnail}" alt="{raid}" loading="lazy" class="w-10 h-10 aspect-square md:hidden">
                             {/if}
