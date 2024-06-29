@@ -23,12 +23,15 @@ export function parseSheetData(headers: Sheet.RaidTitle[], valueRanges?: sheets_
                 let entry: Record<typeof cellHeaders[number], any> = {}
                 const characters = [row.slice(4, 8), row.slice(8, 12), row.slice(12, 16), row.slice(16, 20)].map((characterData, characterIndex) => {
                     let charaObject: Record<string, string> = {}
-                    charaObject[cellHeaders[4]] = characterData[0]
-                    charaObject[cellHeaders[5]] = characterData[1]
-                    charaObject[cellHeaders[6]] = characterData[2]
-                    charaObject[cellHeaders[7]] = characterData[3]
-                    return charaObject
-                })
+                    if (characterData[0] || characterData[1] || characterData[2] || characterData[3]) {
+                        charaObject[cellHeaders[4]] = characterData[0]
+                        charaObject[cellHeaders[5]] = characterData[1]
+                        charaObject[cellHeaders[6]] = characterData[2]
+                        charaObject[cellHeaders[7]] = characterData[3]
+                        return charaObject
+                    }
+                }).filter((characters) => characters !== undefined)
+
                 entryMeta.forEach((meta, metaIndex) => {
                     if (meta === 'Score') {
                         row[metaIndex] = Number(row[metaIndex].replace(/,/g, ''))
@@ -38,6 +41,7 @@ export function parseSheetData(headers: Sheet.RaidTitle[], valueRanges?: sheets_
                     }
                     entry[meta] = row[metaIndex]
                 })
+                
                 entry.characters = characters
                 rowAccumulator.push(entry)
                 return rowAccumulator
