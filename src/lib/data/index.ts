@@ -75,6 +75,21 @@ export const characterMap = {
     },
     "Darley Clatter": {
         thumbnail: "https://www.prydwen.gg/static/e2d29a713c58c599f6a55423eb08e5fa/60b4d/45_icon.webp"
+    },
+    "Getian": {
+        thumbnail: "https://www.prydwen.gg/static/4fd6e47c66ab749e705fe949870212bc/60b4d/72_icon.webp"
+    },
+    "Tennant": {
+        thumbnail: "https://www.prydwen.gg/static/7df6d842ba57123a8c25bb14eff3d6a5/60b4d/22_icon.webp"
+    },
+    "Centurion": {
+        thumbnail: "https://www.prydwen.gg/static/191228ad7e866fba991582aaafdce40b/60b4d/5_icon.webp"
+    },
+    "Sotheby": {
+        thumbnail: "https://www.prydwen.gg/static/3eefac6c421c7f4b62bb2fd19ef00461/60b4d/2_icon.webp"
+    },
+    "Yenisei": {
+        thumbnail: "https://www.prydwen.gg/static/20c18cc239bd2c8a548bdd2b8945b0e5/60b4d/71_icon.webp"
     }
 }
 
