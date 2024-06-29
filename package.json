@@ -46,6 +46,7 @@
         }
     },
     "dependencies": {
+        "chart.js": "^4.4.3",
         "googleapis": "^140.0.0",
         "lucide-svelte": "^0.390.0",
         "pixi.js": "^8.1.8",
