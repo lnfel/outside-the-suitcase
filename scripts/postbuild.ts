@@ -1,6 +1,6 @@
 import * as path from "path"
 import { fileURLToPath } from "url"
-import { rm, readdir, writeFile } from 'node:fs/promises'
+import { rm, readdir, writeFile, stat } from 'node:fs/promises'
 import { crayon } from "crayon.js"
 import manifest from "../build/manifest.json" with { type: "json" }
 
@@ -33,6 +33,17 @@ async function excludeFilesFromBuild(paths: string[]) {
         // console.log(`${path.join(__dirname, '..')}${crayon.lightRed(`/${audioPath}/${file}`)}`)
         console.log(`   ${audioPath}/${crayon.lightRed(`${file}`)}`)
         await rm(resolvedPathName, { recursive: true, force: true })
+    })
+    await stat(path.join(__dirname, '../build/img/bg/the-storm.psd')).then(async (stats) => {
+        console.log(`   build/img/bg/${crayon.lightRed('the-storm.psd')}`)
+        await rm(path.join(__dirname, '../build/img/bg/the-storm.psd'), { recursive: true, force: true })
+    }).catch((error) => {
+        // console.log(crayon.lightBlue('../build/img/bg/the-storm.psd has already been removed.'))
+        // if (error instanceof Error) {
+        //     console.log(error.message)
+        // } else {
+        //     console.log(error.toString())
+        // }
     })
 }
 
