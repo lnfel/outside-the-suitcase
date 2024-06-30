@@ -11,13 +11,13 @@
             </a>
         </div>
         <div class="max-w-[80ch]">
-            This website project is dedicated to aggregating data from the <a href="https://docs.google.com/spreadsheets/d/1wjEllGmrOEUbwKLXkURFQSZVZyfw-J2-T_lOX2FAJiw/edit#gid=395927062" target="_blank" class="text-tuscany-600 outline-none hover:underline focus:underline">community-made Mane's Bulletin Leaderboard</a> for non-Chinese servers by carnation1024. To submit an entry, "Brave the storm".
+            This website project is dedicated to aggregating data from the <a href="https://docs.google.com/spreadsheets/d/1wjEllGmrOEUbwKLXkURFQSZVZyfw-J2-T_lOX2FAJiw/edit#gid=395927062" target="_blank" class="text-tuscany-600 dark:text-tuscany-300 outline-none hover:underline focus:underline">community-made Mane's Bulletin Leaderboard</a> for non-Chinese servers by carnation1024. To submit an entry, "Brave the storm".
         </div>
     </div>
 
     <footer class="flex flex-col items-center text-sm">
         <div>
-            Courtesy from <a href="https://github.com/lnfel" class="text-tuscany-600 outline-none hover:underline focus:underline">lnfel</a>
+            Courtesy from <a href="https://github.com/lnfel" class="text-tuscany-600 dark:text-tuscany-300 outline-none hover:underline focus:underline">lnfel</a>
         </div>
         <div>
             This website is proudly made with <a href="https://kit.svelte.dev/" aria-label="Proudly made with SvelteKit" target="_blank" class="text-[#ff3e00] outline-none hover:underline focus:underline">SvelteKit</a>
