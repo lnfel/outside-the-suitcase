@@ -22,6 +22,9 @@
             nav.dataset.state = nav.dataset.state === 'open'
                 ? 'close'
                 : 'open'
+            nav.dataset.state === 'open'
+                ? event.currentTarget.setAttribute('aria-expanded', 'true')
+                : event.currentTarget.removeAttribute('aria-expanded')
         }
     }
 
@@ -39,6 +42,9 @@
             dropdownContainer.dataset.state = dropdownContainer.dataset.state === 'open'
                 ? 'close'
                 : 'open'
+            dropdownContainer.dataset.state === 'open'
+                ? dropdownContainer.querySelector('button')?.setAttribute('aria-expanded', 'true')
+                : dropdownContainer.querySelector('button')?.removeAttribute('aria-expanded')
         }
     }
 
@@ -103,13 +109,13 @@
             <span class="mukta-regular sr-only md:not-sr-only">Reverse 1999 Global Leaderboard</span>
         </a>
 
-        <button onclick={toggleNav} type="button" class="md:hidden text-slate-800 dark:text-white outline-none hover:text-tuscany-600 focus:text-tuscany-600">
+        <button onclick={toggleNav} aria-label="Toggle menu" aria-controls="main-nav" aria-haspopup="menu" type="button" class="md:hidden text-slate-800 dark:text-white outline-none hover:text-tuscany-600 focus:text-tuscany-600">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu pointer-events-none"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
         </button>
     </div>
 
     <!-- absolute bottom-full md:static  -->
-    <nav data-state="close" class="data-[state=close]:hidden md:data-[state=close]:flex flex flex-col md:flex-row md:items-center gap-4 mukta-regular text-lg tracking-wide">
+    <nav id="main-nav" data-state="close" class="data-[state=close]:hidden md:data-[state=close]:flex flex flex-col md:flex-row md:items-center gap-4 mukta-regular text-lg tracking-wide">
         <a href="{base}/" onclick={closeNav} class="{$page.url.pathname === `${base}/` ? 'text-tuscany-600 dark:text-tuscany-300' : ''} outline-none hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-400 dark:focus:text-tuscany-400">
             Home
         </a>
@@ -119,13 +125,13 @@
                 <a href="{base}/leaderboard/raid/{data.raid?.toLowerCase().split(" ").join("-") ?? 'darkness-of-the-abyss'}?category={data.category}" onclick={closeNav} class="{$page.url.pathname.includes(`${base}/leaderboard`) ? 'text-tuscany-600 dark:text-tuscany-300' : ''} outline-none hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-400 dark:focus:text-tuscany-400">
                     Leaderboard
                 </a>
-                <button onclick={toggleDropdown} type="button" class="outline-none hover:text-tuscany-600 focus:text-tuscany-600 dark:hover:text-tuscany-300 dark:focus:text-tuscany-300">
+                <button onclick={toggleDropdown} aria-label="Toggle leaderbord dropdown" aria-controls="leaderboard-dropdown" aria-haspopup="menu" type="button" class="outline-none hover:text-tuscany-600 focus:text-tuscany-600 dark:hover:text-tuscany-300 dark:focus:text-tuscany-300">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up-down w-4 h-4 group-data-[state=open]:hidden pointer-events-none"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-down-up w-4 h-4 group-data-[state=close]:hidden pointer-events-none"><path d="m7 20 5-5 5 5"/><path d="m7 4 5 5 5-5"/></svg>
                 </button>
             </div>
 
-            <div class="dropdown-content w-full group-data-[state=close]:hidden flex flex-col gap-1 md:absolute bottom-full md:backdrop-blur-md {$page.url.pathname.includes(`${base}/leaderboard/`) ? 'md:bg-white/70 md:dark:bg-slate-900/70' : ''} md:mb-10">
+            <div id="leaderboard-dropdown" class="dropdown-content w-full group-data-[state=close]:hidden flex flex-col gap-1 md:absolute bottom-full md:backdrop-blur-md {$page.url.pathname.includes(`${base}/leaderboard/`) ? 'md:bg-white/70 md:dark:bg-slate-900/70' : ''} md:mb-10">
                 <!-- new URL(window.location.toString()).searchParams.get('category') -->
                 <a href="{base}/leaderboard/raid/{data.raid?.toLowerCase().split(" ").join("-") ?? 'darkness-of-the-abyss'}?category=f2p" onclick={closeNav} class="border-l-8 border-transparent outline-none hover:text-tuscany-500 focus:text-tuscany-500 dark:hover:text-tuscany-400 dark:focus:text-tuscany-400 {$page.url.searchParams.get('category') === 'f2p' ? 'border-tuscany-600 dark:border-tuscany-300' : ''} px-4">
                     F2P
