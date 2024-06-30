@@ -5,6 +5,7 @@
     "scripts": {
         "dev": "vite dev",
         "build": "vite build",
+        "postbuild": "node ./scripts/postbuild.js",
         "preview": "vite preview",
         "test": "npm run test:integration && npm run test:unit",
         "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -22,6 +23,7 @@
         "@sveltejs/adapter-static": "^3.0.1",
         "@sveltejs/kit": "^2.5.17",
         "@sveltejs/vite-plugin-svelte": "^3.1.1",
+        "@types/node": "^20.14.9",
         "@types/three": "^0.165.0",
         "autoprefixer": "^10.4.19",
         "gh-pages": "^6.1.1",
@@ -47,6 +49,7 @@
     },
     "dependencies": {
         "chart.js": "^4.4.3",
+        "crayon.js": "^3.3.3",
         "googleapis": "^140.0.0",
         "lucide-svelte": "^0.390.0",
         "pixi.js": "^8.1.8",
