@@ -1,0 +1,1 @@
+{"version":3,"file":"10.FaXtHKi0.js","sources":["../../../../../../src/routes/(main)/leaderboard/[...path]/+page.ts"],"sourcesContent":["import { error } from '@sveltejs/kit'\n\nexport const load = () => {\n    error(404, 'Raid Not Found')\n}\n"],"names":["load","error"],"mappings":"2CAEO,MAAMA,EAAO,IAAM,CACtBC,EAAM,IAAK,gBAAgB,CAC/B"}

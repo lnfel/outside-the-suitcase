@@ -1,0 +1,2 @@
+import{e as r,h as d,d as h,l as o,i as s}from"./template.B2J4WHVd.js";import{o as l,x as f}from"./runtime.DTLJS4Cp.js";let e;function c(){e=void 0}function p(t){let a=null,i=d;var n;if(d){for(a=s,e===void 0&&(e=document.head.firstChild);e.nodeType!==8||e.data!==f;)e=e.nextSibling;e=h(e),e=e.nextSibling}else n=document.head.appendChild(r());try{l(()=>t(n))}finally{i&&o(a)}}export{p as h,c as r};
+//# sourceMappingURL=svelte-head.CUqH2DhT.js.map

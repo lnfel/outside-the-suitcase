@@ -1,0 +1,2 @@
+import{o as E,H as v,w as h,y as t,z as r,A as n,O as p}from"./runtime.DTLJS4Cp.js";import{h as y,j as o,i as A}from"./template.B2J4WHVd.js";function b(f,u,c,l=null,_=!1){var e=null,s=null,a=null,m=_?p:0;E(()=>{if(a===(a=!!u()))return;let i=!1;if(y){const d=f.data===v;a===d&&(h(A),o(!1),i=!0)}a?(e?t(e):e=r(()=>c(f)),s&&n(s,()=>{s=null})):(s?t(s):l&&(s=r(()=>l(f))),e&&n(e,()=>{e=null})),i&&o(!0)},m)}export{b as i};
+//# sourceMappingURL=if.BBPrruah.js.map

@@ -6,23 +6,23 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Reverse 1999 Mane's Bulletin Global Leaderboard for non-Chinese servers.">
 		
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/entry/start.C1KYZCH0.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/entry.BDTU8x7V.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/index-client.VlGoYQNb.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/runtime.C2Zc6Vci.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/paths.B_7Dn9K0.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/entry/start.0FmnWFvz.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/entry.Dh0VuBnu.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/index-client.XNwHMS1C.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/runtime.DTLJS4Cp.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/paths.jIiee-p2.js">
 		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/entry/app.6xqnEUL5.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/entry/app.Cn80sAPi.js">
 		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/preload-helper.CRk0x-X1.js">
 		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/index.CT8Tde97.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/proxy.BjlMx0ws.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/render.BSFr2KKI.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/template.DJK7smhD.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/svelte-head.D4WIdBQT.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/proxy.CKJoFeXp.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/render.CJy_g0Wp.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/template.B2J4WHVd.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/svelte-head.CUqH2DhT.js">
 		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/disclose-version.Bg9kRutz.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/if.MdFLc77f.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/this.BsltOBbE.js">
-		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/props.DcQzd0wf.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/if.BBPrruah.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/this.CEww6dYY.js">
+		<link rel="modulepreload" href="/outside-the-suitcase/_app/immutable/chunks/props.BXuQdz7u.js">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,6 +30,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="/outside-the-suitcase/css/main.css">
+        <link rel="manifest" href="/outside-the-suitcase/manifest.json">
 	</head>
     <!-- Do not transition colors to prevent FART: https://css-tricks.com/flash-of-inaccurate-color-theme-fart/ -->
 	<body data-sveltekit-preload-data="hover" class="mukta-regular text-slate-800 dark:text-white bg-white dark:bg-slate-900">
@@ -53,7 +54,7 @@
 		<div class="min-h-screen relative flex flex-col-reverse">
 			<script>
 				{
-					__sveltekit_kybspm = {
+					__sveltekit_135iixm = {
 						base: "/outside-the-suitcase",
 						assets: "/outside-the-suitcase"
 					};
@@ -61,11 +62,17 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/outside-the-suitcase/_app/immutable/entry/start.C1KYZCH0.js"),
-						import("/outside-the-suitcase/_app/immutable/entry/app.6xqnEUL5.js")
+						import("/outside-the-suitcase/_app/immutable/entry/start.0FmnWFvz.js"),
+						import("/outside-the-suitcase/_app/immutable/entry/app.Cn80sAPi.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});
+
+					if ('serviceWorker' in navigator) {
+						addEventListener('load', function () {
+							navigator.serviceWorker.register('/outside-the-suitcase/service-worker.js');
+						});
+					}
 				}
 			</script>
 		</div>

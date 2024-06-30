@@ -1,0 +1,2 @@
+import"../chunks/disclose-version.Bg9kRutz.js";import{p as r,a as s}from"../chunks/runtime.DTLJS4Cp.js";import{b as n,a as p,f as i}from"../chunks/template.B2J4WHVd.js";import{s as m}from"../chunks/app.Cgui-v1U.js";const l=!1,d=Object.freeze(Object.defineProperty({__proto__:null,ssr:l},Symbol.toStringTag,{value:"Module"}));function b(e,o){r(o,!0);var t=n(),a=i(t);m(()=>o.children,a),p(e,t),s()}export{b as component,d as universal};
+//# sourceMappingURL=2.COa3SwAx.js.map
