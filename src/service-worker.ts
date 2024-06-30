@@ -17,7 +17,12 @@ const ASSETS = [...build, ...files]
 self.addEventListener('install', (event) => {
     async function addFilesToCache() {
         const cache = await caches.open(CACHE)
-        await cache.addAll(ASSETS)
+        const stack: Promise<void>[] = []
+        ASSETS.forEach((asset) => {
+            stack.push(cache.add(asset).catch(() => console.error(`Can't load ${asset} to cache.`)))
+        })
+        await Promise.all(stack)
+        // await cache.addAll(ASSETS)
     }
 
     event.waitUntil(addFilesToCache())
