@@ -131,7 +131,7 @@
         // const elapsedTime = clock.getElapsedTime()
 
         const canvas = document.querySelector('canvas')
-        if (canvas) {
+        if (canvas && rainContainer) {
             updateCanvasPosition(canvas, rainContainer)
         }
         // msTimer += 30 // this is used for the lamp post
