@@ -2,7 +2,7 @@
     "name": "Outside the Suitcase",
     "short_name": "Outside the Suitcase",
     "description": "Reverse 1999 global community leaderboard web app.",
-    "start_url": "/",
+    "start_url": "/outside-the-suitcase",
     "display": "standalone",
     "theme_color": "#b55829",
     "icons": [
