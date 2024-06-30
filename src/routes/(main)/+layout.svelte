@@ -49,7 +49,24 @@
         localStorage.setItem('ots:shelter-from-the-storm', shelterFromTheStorm)
     }
 
+    async function detectSWUpdate() {
+        const registration = await navigator.serviceWorker.ready
+        registration.addEventListener('updatefound', () => {
+            const newSW = registration.installing
+            newSW?.addEventListener('statechange', () => {
+                if (newSW.state === 'installed') {
+                    if (confirm('New update available! Reload the page to use the latest version of the app?')) {
+                        newSW.postMessage({ type: 'SKIP_WAITING' })
+                        // location.reload() // no need this one
+                    }
+                }
+            })
+        })
+    }
+
     onMount(() => {
+        detectSWUpdate()
+
         document.documentElement.addEventListener('click', () => {
             const nav = document.querySelector('nav')
             const dropdowns = document.querySelectorAll('.dropdown') as NodeListOf<HTMLDivElement>

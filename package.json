@@ -14,7 +14,8 @@
         "test:unit": "vitest",
         "lint": "prettier --check .",
         "format": "prettier --write .",
-        "gh:deploy": "npm run build && pnpm dlx gh-pages@6.1.1 -d build -t true"
+        "gh:deploy": "npm run build && pnpm dlx gh-pages@6.1.1 -d build -t true",
+        "pwa:assets:generate": "pwa-assets-generator --preset minimal static/jessica-ms-international.png"
     },
     "devDependencies": {
         "@melt-ui/pp": "^0.3.2",
@@ -25,6 +26,7 @@
         "@sveltejs/vite-plugin-svelte": "^3.1.1",
         "@types/node": "^20.14.9",
         "@types/three": "^0.165.0",
+        "@vite-pwa/assets-generator": "^0.2.4",
         "autoprefixer": "^10.4.19",
         "gh-pages": "^6.1.1",
         "node-web-audio-api": "^0.21.0",
