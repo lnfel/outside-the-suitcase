@@ -48,7 +48,7 @@
         rainArr = []
         for (let i = rainCount - 1; i >= 0; i--) {
             rainArr.push({
-                x: 1,
+                x: Math.floor((Math.random() * document.documentElement.clientWidth) + 9),
                 y: 0,
                 z: 0
             })
@@ -264,6 +264,6 @@
 <div class="fixed top-6 z-10 right-10 md:right-20 flex items-center gap-2 {className}">
     <span class="dialouge crimson-text-regular text-sm">{ dialouge }</span>
     <button onclick={momentWithSonetto} disabled={weatherEnabled} type="button" class="outline-none hover:opacity-100 focus:opacity-100 transition-opacity" class:opacity-20={!weatherEnabled}>
-        <img src="{base}/img/character/sonetto.webp" alt="Vertin" class="w-10 h-10 rounded-full overflow-hidden pointer-events-none">
+        <img src="{base}/img/character/sonetto.webp" alt="Sonetto" loading="lazy" class="w-10 h-10 rounded-full overflow-hidden pointer-events-none">
     </button>
 </div>
