@@ -23,7 +23,6 @@
         searchParams.set('category', event.currentTarget.value)
         const url = new URL(window.location.toString())
         url.search = searchParams.toString()
-        console.log(url.toString())
         // window.location.search = searchParams.toString()
         goto(url.toString())
     }
