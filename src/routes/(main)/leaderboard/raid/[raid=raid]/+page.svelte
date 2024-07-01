@@ -5,6 +5,7 @@
     import { onMount } from 'svelte'
 
     import LoadingSpinner from '$lib/components/LoadingSpinner.svelte'
+	import { afflatusMap } from '$lib/data/index.js';
 
     let { data } = $props()
     let category: Sheet.Category = $state(data.category)
@@ -195,18 +196,22 @@
                                                         <img src="{data.characterMap[character.Name]?.thumbnail ?? ""}" alt="{character.Name}" loading="lazy" width="40" height="40" class="inline w-10 h-10" />
                                                     </button>
                                                     
-                                                    <div class="dropdown-content group-data-[state=close]:hidden absolute left-1/2 -translate-x-1/2 z-10 text-white bg-tuscany-600 p-2 space-y-2">
-                                                        <div class="crimson-text-bold tracking-wide">{ character.Name }</div>
+                                                    <div class="dropdown-content group-data-[state=close]:hidden absolute left-1/2 -translate-x-1/2 z-[9] text-slate-800 bg-tuscany-300 px-2.5 py-2 space-y-2 shadow">
+                                                        <div class="flex items-center">
+                                                            <img src="{data.afflatusMap[data.characterMap[character.Name].afflatus as keyof typeof afflatusMap].tag}" alt="{data.characterMap[character.Name].afflatus}" width="15" height="25" class="relative mt-[-20px] ml-[-5px]">
+                                                            <div class="crimson-text-bold tracking-wide whitespace-nowrap pl-1">{ character.Name }</div>
+                                                        </div>
+
                                                         <ul class="text-sm">
-                                                            <li class="flex items-center justify-between flex-nowrap whitespace-nowrap space-x-4">
+                                                            <li class="flex items-center justify-between flex-nowrap whitespace-nowrap gap-6">
                                                                 <div>Resonance level</div>
                                                                 <div>{character.Resonance}</div>
                                                             </li>
-                                                            <li class="flex items-center justify-between flex-nowrap whitespace-nowrap space-x-4">
+                                                            <li class="flex items-center justify-between flex-nowrap whitespace-nowrap gap-6">
                                                                 <div>Portray</div>
                                                                 <div>{ character.Portray }</div>
                                                             </li>
-                                                            <li class="flex items-center justify-between flex-nowrap whitespace-nowrap space-x-4">
+                                                            <li class="flex items-center justify-between flex-nowrap whitespace-nowrap gap-6">
                                                                 <div>Amplification</div>
                                                                 <div>{ character.Amplification }</div>
                                                             </li>
@@ -228,7 +233,7 @@
     </div>
 </main>
 
-<style>
+<style lang="postcss">
     /* .table-container:has([data-state=open]) {
         overflow: visible!important;
     } */
@@ -242,12 +247,36 @@
         content: counter(ranking);
     }
 
-    table > tbody tr:last-of-type .dropdown-content {
-        bottom: 100%;
+    table > tbody tr .dropdown-content {
+        margin-top: 0.5rem;
     }
 
+    table > tbody tr .dropdown-content::before {
+        /* before:absolute before:bottom-full before:left-1/2 before:-translate-x-1/2 before:border-8 before:border-solid before:border-transparent before:border-b-slate-800/90 */
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 8px solid transparent;
+        border-bottom-color: theme(colors.tuscany.300);
+    }
+
+    table > tbody tr:last-of-type .dropdown-content,
     table > tbody tr:nth-last-child(2) .dropdown-content {
         bottom: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    table > tbody tr:last-of-type .dropdown-content::before,
+    table > tbody tr:nth-last-child(2) .dropdown-content::before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 8px solid transparent;
+        border-top-color: theme(colors.tuscany.300);
     }
 
     select {
