@@ -12,7 +12,7 @@ declare let self: ServiceWorkerGlobalScope
 
 // Install service worker
 const CACHE = `cache-${version}`
-const ASSETS = [...build, ...files]
+const ASSETS = [...build, ...files, `${location.pathname.split("/").slice(0,-1).join("/")}/api/waveform-path`]
 
 self.addEventListener('install', (event) => {
     async function addFilesToCache() {
