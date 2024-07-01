@@ -18,10 +18,25 @@ const config = {
         },
         paths: {
             base: process.argv.includes('dev') ? '' : '/outside-the-suitcase'
+        },
+        serviceWorker: {
+            files: (filename) => {
+                const filesToExclude = [
+                    '.DS_Store',
+                    'audio/timekeeper.mp3',
+                    'audio/it-is-raining-outside.mp3',
+                    'audio/and-the-raindrops.mp3',
+                    'audio/sonetto-gasp.mp3',
+                    'audio/sonetto-eek.mp3',
+                    'audio/sonetto-dialouge.mp3',
+                    'audio/sonetto-dialouge-timed.mp3',
+                ]
+                return !filesToExclude.includes(filename)
+            }
         }
 	},
     compilerOptions: {
         runes: true
-    }
+    },
 };
 export default config;
