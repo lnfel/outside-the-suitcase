@@ -1,4 +1,4 @@
-import { headers, characterMap } from '$lib/data'
+import { headers, characterMap, afflatusMap } from '$lib/data'
 
 export const load = async ({ parent, params, url }) => {
     // const { sheet } = await parent()
@@ -9,6 +9,7 @@ export const load = async ({ parent, params, url }) => {
         // raid,
         headers,
         characterMap,
+        afflatusMap,
         categories: ['f2p', 'ffa'] as Sheet.Category[],
         category: (url.searchParams.get('category') ?? 'f2p') as Sheet.Category
     }
